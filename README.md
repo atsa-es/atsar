@@ -10,7 +10,7 @@ You can install the development version of the package with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("eric-ward/safs-timeseries/statss")
+devtools::install_github("nwfsc-timeseries/statss")
 ```
 
 An example model

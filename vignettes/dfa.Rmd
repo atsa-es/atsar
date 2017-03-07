@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r install, eval=TRUE, warning=FALSE, message=FALSE, results='hide'}
 library(rstan)
 library(devtools)
-devtools::install_github("eric-ward/safs-timeseries/statss")
+devtools::install_github("nwfsc-timeseries/statss")
 library(statss)
 # for optimizing stan on your machine,
 rstan_options(auto_write = TRUE)
