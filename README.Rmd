@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 
 The statss R package implements Bayesian time series models, primarily for illustrative purposes and teaching (University of Washington's Fish 507, Winter quarter 2017). You can cite the package as:
 
-####Citation: Ward, E.J., M.D. Scheuerell, and E.E. Holmes. 2017. 'statss': Stan for Analyzing Time Series: an introduction to time series analysis for ecological and fisheries data.  [![DOI](https://zenodo.org/badge/78160922.svg)](https://zenodo.org/badge/latestdoi/78160922)
+####Citation: Ward, E.J., M.D. Scheuerell, and E.E. Holmes. 2017. 'statss': Stan for Analyzing Time Series: an introduction to time series analysis for ecological and fisheries data.  [![DOI](https://zenodo.org/badge/84236127.svg)](https://zenodo.org/badge/latestdoi/84236127)
 
 You can install the development version of the package with:
 
