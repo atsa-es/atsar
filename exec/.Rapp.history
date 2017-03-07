@@ -1,0 +1,2 @@
+load("/Users/eric.ward/Documents/safs-timeseries/STATS/exec/ar_drift.rds")
+load("/Users/eric.ward/Documents/safs-timeseries/statss/exec/rw.rds")

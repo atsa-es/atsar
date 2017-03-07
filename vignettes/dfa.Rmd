@@ -1,0 +1,122 @@
+---
+title: "Package statss"
+author: "Eric Ward"
+date: "February 14, 2017"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{tvvarss}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Installation
+
+```{r install, eval=TRUE, warning=FALSE, message=FALSE, results='hide'}
+library(rstan)
+library(devtools)
+devtools::install_github("eric-ward/safs-timeseries/statss")
+library(statss)
+# for optimizing stan on your machine,
+rstan_options(auto_write = TRUE)
+options(mc.cores = parallel::detectCores())
+```
+
+## Data
+
+We'll use the same data as in the MARSS manual to illustrate an example of dynamic factor analysis (DFA)
+
+```{r, eval=TRUE, warning=FALSE, message=FALSE, results='hide'}
+library(MARSS)
+# load the data (there are 3 datasets contained here)
+data(lakeWAplankton)
+# we want lakeWAplanktonTrans, which has been transformed
+# so the 0s are replaced with NAs and the data z-scored
+dat = lakeWAplanktonTrans
+# use only the 10 years from 1980-1989
+plankdat = dat[dat[,"Year"]>=1980 & dat[,"Year"]<1990,]
+# create vector of phytoplankton group names
+phytoplankton = c("Cryptomonas", "Diatoms", "Greens",
+                   "Unicells", "Other.algae")
+# get only the phytoplankton
+dat.spp.1980 = plankdat[,phytoplankton]
+```
+
+## Estimation  
+
+For starters, we can fit the trend model with 3 trends and no covariates.
+
+```{r, warning=FALSE, message=FALSE, results='hide'}
+# fit the three trend model with 3 covariates
+y = t(dat.spp.1980)
+model = fit_dfa(y = t(dat.spp.1980), num_trends=3, iter=1000)
+```
+
+### Varimax function
+
+We can use the same varimax rotation as in MARSS to rotate the trends
+```{r, warning=FALSE, message=FALSE, results='hide'}
+rot = rotate_trends(model)
+```
+
+### Plot the trend estimates
+
+```{r}
+par(mfrow=c(2,2),mai=c(0.4,0.4,0.2,0.1))
+for(i in 1:dim(rot$Z_rot_mean)[2]) {
+  plot(rot$trends_mean[i,], type="l", main=paste("Trend:",i))
+}
+```
+
+### Get the Z-estimates (loadings)
+
+```{r}
+print(rot$Z_rot_mean)
+```
+
+## Model selection
+
+We can fit the models with 1-5 trends as follows. Note: all of these assume the observation variance is equal between time series (to change this, use the 'varIndx' argument).
+
+```{r, warning=FALSE, message=FALSE, results='hide'}
+mod_1 = fit_dfa(y = t(dat.spp.1980), num_trends=1, iter=500)
+mod_2 = fit_dfa(y = t(dat.spp.1980), num_trends=2, iter=500)
+mod_3 = fit_dfa(y = t(dat.spp.1980), num_trends=3, iter=500)
+mod_4 = fit_dfa(y = t(dat.spp.1980), num_trends=4, iter=500)
+mod_5 = fit_dfa(y = t(dat.spp.1980), num_trends=5, iter=500)
+```
+
+We can then use the `loo` package to extract the Leave One Out Information Criterion (LOOIC). We do this with the following, 
+
+```{r}
+library(loo)
+loo(extract_log_lik(mod_1))$looic
+```
+
+## Covariates
+
+Next as an example, we can illustrate how to fit a model with 4 covariates. These will be simulated with just noise. We can illustrate an example using 10 covariates with this dataset. 
+
+Including covariates requires 2 matrices to be entered: the `covar` matrix to include the actual (raw covariate) values, and optionally the `covar_index` matrix, which specifies which parameter may be shared across time series. For example, we can force the effects of covariates 1-10 to be the same on species 1/2, the same on species 3/4, and unique for species 5. 
+```{r, eval=FALSE, warning=FALSE, message=FALSE, results='hide'}
+# fit the three trend model with 37 covariates
+y = t(dat.spp.1980)
+covar = matrix(runif(10*ncol(y)), nrow=10)
+covar_index = matrix(1, nrow(y), nrow(covar))
+# let's make species 1, 3 have the same effects, 2/4 have the same effects and 5 be different
+covar_index[1,] = 1:10
+covar_index[3,] = 1:10
+covar_index[2,] = 11:20
+covar_index[4,] = 11:20
+covar_index[5,] = 21:30
+fit_dfa(y = y, covar=covar, covar_index = covar_index, num_trends=3, iter=500)
+
+```
+
+
+
+
+
