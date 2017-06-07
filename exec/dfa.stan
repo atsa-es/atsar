@@ -7,11 +7,11 @@ data {
   int<lower=0> col_indx[nZ];
   int<lower=0> nVariances;
   int<lower=0> varIndx[P];
-  int<lower=0> nZero;  
+  int<lower=0> nZero;
   int<lower=0> row_indx_z[nZero];
   int<lower=0> col_indx_z[nZero];
   int<lower=0> n_pos;
-  real y[n_pos]; # vectorized matrix of observations  
+  real y[n_pos]; # vectorized matrix of observations
   int<lower=0> row_indx_pos[n_pos];
   int<lower=0> col_indx_pos[n_pos];
   int<lower=0> num_covar; # number of unique covariates
@@ -29,7 +29,7 @@ transformed parameters {
   matrix[P,N] pred; #vector[P] pred[N];
   matrix[P,num_covar] D;
   matrix[P,K] Z;
-  
+
   # fill in D matrix to allow for shared parameters
   if(num_covar > 0) {
    for(i in 1:P) {
@@ -38,7 +38,7 @@ transformed parameters {
     }
    }
   }
-  
+
   for(i in 1:nZ) {
     Z[row_indx[i],col_indx[i]] = z[i];
   }
@@ -48,7 +48,10 @@ transformed parameters {
       Z[row_indx_z[i],col_indx_z[i]] = 0;
     }
   }
-  
+  # constrain Z to avoid flipping
+  for(k in 1:K) {
+    Z[k,k] = 1;
+  }
   # N is sample size, P = time series, K = number trends
   # [PxN] = [PxK] * [KxN]
   if(num_covar==0) pred = Z * x;
@@ -64,15 +67,15 @@ model {
   }
   # prior on loadings
   z ~ normal(0, 1);
-  
+
   # prior on covariate effects.
   if(num_covar > 0) d ~ normal(0,1);
-  
+
   # observation variance
   for(i in 1:nVariances) {
   sigma[i] ~ student_t(3, 0, 2);
   }
-  
+
   # likelihood
   for(i in 1:n_pos) {
     y[i] ~ normal(pred[row_indx_pos[i], col_indx_pos[i]], sigma[varIndx[row_indx_pos[i]]]);
@@ -81,6 +84,6 @@ model {
 }
 generated quantities {
   vector[n_pos] log_lik;
-  # regresssion example in loo() package 
+  # regresssion example in loo() package
   for (n in 1:n_pos) log_lik[n] = normal_lpdf(y[n] | pred[row_indx_pos[n], col_indx_pos[n]], sigma[varIndx[row_indx_pos[n]]]);
 }

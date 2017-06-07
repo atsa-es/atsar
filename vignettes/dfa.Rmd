@@ -112,10 +112,19 @@ covar_index[3,] = 1:10
 covar_index[2,] = 11:20
 covar_index[4,] = 11:20
 covar_index[5,] = 21:30
-fit_dfa(y = y, covar=covar, covar_index = covar_index, num_trends=3, iter=500)
+fit_dfa(y = y, covar=covar, covar_index = covar_index, num_trends=1, iter=500)
 
 ```
 
+Example of fitting a single covariate (e.g. time trend) shared across populations
+```{r, eval=FALSE}
+covar = matrix(1:ncol(y), 1, ncol(y))
+
+covar_index = matrix(1, 5, 1)
+model = fit_dfa(y = y, covar=covar, 
+  covar_index = covar_index, num_trends=1, iter=500)
+hist(pars$D[,1,])
+```
 
 
 
