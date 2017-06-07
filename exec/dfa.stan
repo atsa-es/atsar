@@ -18,10 +18,12 @@ data {
   int<lower=0> num_unique_covar; # number of covar parameters to estimate
   matrix[num_covar,N] d_covar; # inputted covariate matrix
   int covar_indexing[P,num_covar]; # index of covariates to estimate
+  int estimate_trend; # whether or not to estimate trend, default = 0
 }
 parameters {
   matrix[K,N] x; #vector[N] x[P]; # random walk-trends
   vector[nZ] z; # estimated loadings in vec form
+  vector[K] u; # trend parameter, optional for process model
   real<lower=0> sigma[nVariances];
   vector[num_unique_covar] d;
 }
@@ -60,9 +62,10 @@ transformed parameters {
 model {
   # initial state for each trend
   for(k in 1:K) {
+    u[k] ~ normal(0, 1); # prior for trend
     x[k,1] ~ normal(0, 1);
     for(t in 2:N) {
-      x[k,t] ~ normal(x[k,t-1],1); # random walk
+      x[k,t] ~ normal(estimate_trend*u[k] + x[k,t-1],1); # random walk
     }
   }
   # prior on loadings
