@@ -1,8 +1,8 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-statss (Stan for Analyzing Time Series)
-=======================================
+atsar (Applied Time Series Analysis in R)
+=========================================
 
-The statss R package implements Bayesian time series models, primarily for illustrative purposes and teaching (University of Washington's Fish 507, Winter quarter 2017). You can cite the package as:
+The atsar R package implements Bayesian time series models using STAN, primarily for illustrative purposes and teaching (University of Washington's Fish 507, Winter quarter 2017). The Stan webpage, and appropriate citation guidelines are [here](http://mc-stan.org/). You can cite the package as:
 
 #### Citation: Ward, E.J., M.D. Scheuerell, and E.E. Holmes. 2017. 'statss': Stan for Analyzing Time Series: an introduction to time series analysis for ecological and fisheries data. [![DOI](https://zenodo.org/badge/84236127.svg)](https://zenodo.org/badge/latestdoi/84236127)
 
@@ -10,7 +10,7 @@ You can install the development version of the package with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("nwfsc-timeseries/statss")
+devtools::install_github("nwfsc-timeseries/atsar")
 ```
 
 An example model
@@ -20,12 +20,18 @@ Simulate data:
 
 ``` r
 library(rstan)
-library(statss)
-#> 
-#> Attaching package: 'statss'
-#> The following object is masked from 'package:STATS':
-#> 
-#>     fit_stan
+#> Warning: package 'rstan' was built under R version 3.4.3
+#> Loading required package: ggplot2
+#> Loading required package: StanHeaders
+#> Warning: package 'StanHeaders' was built under R version 3.4.3
+#> rstan (Version 2.17.3, GitRev: 2e1f913d3ca3)
+#> For execution on a local, multicore CPU with excess RAM we recommend calling
+#> options(mc.cores = parallel::detectCores()).
+#> To avoid recompilation of unchanged Stan programs, we recommend calling
+#> rstan_options(auto_write = TRUE)
+library(atsar)
+#> Loading required package: Rcpp
+#> Warning: package 'Rcpp' was built under R version 3.4.3
 set.seed(123)
 s = cumsum(rnorm(50))
 ```
@@ -58,4 +64,8 @@ ss_model = fit_stan(y = s, model_name = "ss_ar", est_drift=FALSE)
 References
 ==========
 
-[Fish 507 class website](https://catalyst.uw.edu/workspace/fish203/35553/243766) ...
+The 507 class website is here, but will moved shortly because of transitions to Canvas.
+
+[Fish 507 class website](https://catalyst.uw.edu/workspace/fish203/35553/243766)
+
+Additional information can be found on the Github respository which includes several additional books and packages, [Github dashboard](https://github.com/orgs/nwfsc-timeseries/dashboard) ...
