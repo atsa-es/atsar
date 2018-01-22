@@ -1,4 +1,4 @@
 library(testthat)
-library(statss)
+library(atsar)
 
-test_check("statss")
+test_check("atsar")

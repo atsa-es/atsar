@@ -1,8 +1,8 @@
-Package: statss
+Package: atsar
 Type: Package
 Title: This Package Fits Stan Routines To Univariate And Multivariate Time
-    Series (STan Analysis of Time SerieS)
-Version: 0.1.0
+    Series (Applied Time Series Analysis in R)
+Version: 0.1.1
 Author: Eric Ward, Mark Scheuerell, Eli Holmes
 Maintainer: The package maintainer <eric.ward@noaa.gov>
 Description: Bundles univarate and multivariate STAN scripts for FISH 507 class.
@@ -19,6 +19,6 @@ Suggests:
     rmarkdown
 Encoding: UTF-8
 LazyData: true
-URL: https://github.com/nwfsc-timeseries/statss
-BugReports: https://github.com/nwfsc-timeseries/statss/issues
+URL: https://github.com/nwfsc-timeseries/atsar
+BugReports: https://github.com/nwfsc-timeseries/atsar/issues
 RoxygenNote: 6.0.1
