@@ -4,7 +4,7 @@ data {
   matrix[N, K] x;
   vector[N] y;
   int y_int[N];
-  int family; # 1 = normal, 2 = binomial, 3 = poisson, 4 = gamma, 5 = lognormal  
+  int family; // 1 = normal, 2 = binomial, 3 = poisson, 4 = gamma, 5 = lognormal
 }
 parameters {
   vector[K] beta;
@@ -21,7 +21,7 @@ transformed parameters {
   pred[i] = x[i] * beta;
   epsilon[i] = (y[i] - pred[i]) - phi*epsilon[i-1];
   }
-  sigma_cor = sqrt(sigma*sigma * (1-phi*phi)); # Var = sigma2 * (1-rho^2)
+  sigma_cor = sqrt(sigma*sigma * (1-phi*phi)); // Var = sigma2 * (1-rho^2)
 }
 model {
   phi ~ normal(0,1);
@@ -35,10 +35,10 @@ model {
 }
 generated quantities {
   vector[N] log_lik;
-  # regresssion example in loo() package 
+  // regresssion example in loo() package
   if(family==1) for (n in 1:N) log_lik[n] = normal_lpdf(y[n] | pred[n], sigma_cor);
   if(family==2) for (n in 1:N) log_lik[n] = bernoulli_lpmf(y_int[n] | inv_logit(pred[n]));
   if(family==3) for (n in 1:N) log_lik[n] = poisson_lpmf(y_int[n] | exp(pred[n]));
   if(family==4) for (n in 1:N) log_lik[n] = gamma_lpdf(y[n] | sigma_cor, sigma_cor ./ exp(pred[n]));
-  if(family==5) for (n in 1:N) log_lik[n] = lognormal_lpdf(y[n] | pred[n], sigma_cor); 
+  if(family==5) for (n in 1:N) log_lik[n] = lognormal_lpdf(y[n] | pred[n], sigma_cor);
 }

@@ -86,6 +86,11 @@ fit_dfa <- function(y = y,
   row_indx_pos = matrix((rep(1:P, N)), P, N)[which(!is.na(y))]
   col_indx_pos = matrix(sort(rep(1:N, P)), P, N)[which(!is.na(y))]
   n_pos = length(row_indx_pos)
+  # indices of NAs
+  row_indx_na = matrix((rep(seq_len(P), N)), P, N)[which(is.na(y))]
+  col_indx_na = matrix(sort(rep(seq_len(N), P)), P, N)[which(is.na(y))]
+  n_na = length(row_indx_na)
+
   y = y[which(!is.na(y))]
 
   data_list = list(
@@ -105,6 +110,9 @@ fit_dfa <- function(y = y,
     row_indx_pos,
     col_indx_pos,
     n_pos,
+    row_indx_na = row_indx_na,
+    col_indx_na = col_indx_na,
+    n_na = n_na,
     d_covar,
     num_covar,
     covar_indexing,

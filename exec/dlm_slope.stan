@@ -1,22 +1,22 @@
 data {
   int<lower=0> N;
   vector[N] y;
-  int<lower=0> K; # number of covariates
-  matrix[N, K] x; # matrix of covariates
+  int<lower=0> K; // number of covariates
+  matrix[N, K] x; // matrix of covariates
   int y_int[N];
-  int family; # 1 = normal, 2 = binomial, 3 = poisson, 4 = gamma, 5 = lognormal   
+  int family; // 1 = normal, 2 = binomial, 3 = poisson, 4 = gamma, 5 = lognormal
 }
 parameters {
   real x0;
-  vector[K] beta0;  
+  vector[K] beta0;
   vector[K] pro_dev[N-1];
   real<lower=0> sigma_process[K];
   real<lower=0> sigma_obs;
 }
 transformed parameters {
   vector[N] pred;
-  vector[K] beta[N]; # elements accessed [N,K]
-  
+  vector[K] beta[N]; // elements accessed [N,K]
+
   for(k in 1:K) {
    beta[1,k] = beta0[k];
    for(i in 2:N) {
@@ -24,9 +24,9 @@ transformed parameters {
    }
   }
   for(i in 1:N) {
-    pred[i] = x[i] * beta[i] + x0;   
+    pred[i] = x[i] * beta[i] + x0;
   }
- 
+
 }
 model {
   x0 ~ normal(0,10);
@@ -44,7 +44,7 @@ model {
 }
 generated quantities {
   vector[N] log_lik;
-  # regresssion example in loo() package 
+  // regresssion example in loo() package
   if(family==1) for (n in 1:N) log_lik[n] = normal_lpdf(y[n] | pred[n], sigma_obs);
   if(family==2) for (n in 1:N) log_lik[n] = bernoulli_lpmf(y_int[n] | inv_logit(pred[n]));
   if(family==3) for (n in 1:N) log_lik[n] = poisson_lpmf(y_int[n] | exp(pred[n]));

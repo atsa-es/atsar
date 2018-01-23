@@ -24,6 +24,6 @@ model {
 }
 generated quantities {
   vector[N] log_lik;
-  # regresssion example in loo() package 
+  // regresssion example in loo() package
   for (n in 1:N) log_lik[n] = normal_lpdf(y[n] | pred[n], sigma_obs);
 }
