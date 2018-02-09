@@ -64,4 +64,4 @@ The 507 class website is here, but will moved shortly because of transitions to 
 
 [Fish 507 class website](https://catalyst.uw.edu/workspace/fish203/35553/243766)
 
-Additional information can be found on the Github respository which includes several additional books and packages, [Github dashboard](https://github.com/orgs/nwfsc-timeseries/dashboard) ...
+Additional information can be found on our NWFSC time series page which includes several additional books and packages, [NWFSC time series page](https://nwfsc-timeseries.github.io/).
