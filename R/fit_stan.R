@@ -10,16 +10,16 @@
 #' @param mcmc_list A list of MCMC control parameters. These include the number of 'iterations' (default = 1000), burn in or warmup (default = 500), chains (default = 3), and thinning (default = 1)
 #' @param family A named distribution for the observation model, defaults to gaussian
 #' @param marss A named list containing the following elements for specifying marss models: (states=NULL, obsVariances=NULL, proVariances=NULL, trends=NULL)
-#' 
+#'
 #' @return an object of class 'rstan'
 #' @export
 #'
 fit_stan <- function(y, x=NA, model_name = NA, est_drift = FALSE, est_mean = FALSE, P = 1, Q = 1, mcmc_list = list(n_mcmc = 1000, n_burn = 500, n_chain = 3, n_thin = 1), family="gaussian", marss = list(states=NULL, obsVariances=NULL, proVariances=NULL, trends=NULL)) {
-  stan_dir = find.package("statss")
-  
+  stan_dir = find.package("atsar")
+
   dist = c("gaussian", "binomial", "poisson", "gamma", "lognormal")
   family = which(dist==family)
-  
+
   if(model_name == "regression") {
     if(class(x)!="matrix") x = matrix(x,ncol=1)
     mod = rstan::stan(paste0(stan_dir, "/exec/regression.stan"), data = list("N"=length(y),"K"=dim(x)[2],"x"=x,"y"=y,"y_int"=round(y), "family"=family),
@@ -82,26 +82,26 @@ fit_stan <- function(y, x=NA, model_name = NA, est_drift = FALSE, est_mean = FAL
     # constant slope, and time -varying intercept model
     if(is.na(x)) {
       x = matrix(0, nrow=length(y), ncol=1)
-    } 
+    }
     if(class(x)!="matrix") x = matrix(x,ncol=1)
 
     mod = rstan::stan(paste0(stan_dir, "/exec/dlm_int.stan"), data = list("N"=length(y),"K"=dim(x)[2],"x"=x,"y"=y,"y_int"=round(y), "family"=family),
       pars = c("beta","sigma_obs","sigma_process","pred","intercept","log_lik"), chains = mcmc_list$n_chain, iter = mcmc_list$n_mcmc, thin = mcmc_list$n_thin)
-  }  
+  }
   if(model_name == "dlm-slope") {
     # constant estimated intercept, and time varying slopes
     if(class(x)!="matrix") x = matrix(x,ncol=1)
-    
+
     mod = rstan::stan(paste0(stan_dir, "/exec/dlm_slope.stan"), data = list("N"=length(y),"K"=dim(x)[2],"x"=x,"y"=y,"y_int"=round(y), "family"=family),
       pars = c("beta","sigma_obs","sigma_process","pred","log_lik"), chains = mcmc_list$n_chain, iter = mcmc_list$n_mcmc, thin = mcmc_list$n_thin)
-  }    
+  }
   if(model_name == "dlm") {
     # this is just a time-varying model with time varying intercept and slopes
     if(class(x)!="matrix") x = matrix(x,ncol=1)
-    
+
     mod = rstan::stan(paste0(stan_dir, "/exec/dlm.stan"), data = list("N"=length(y),"K"=dim(x)[2],"x"=x,"y"=y,"y_int"=round(y), "family"=family),
       pars = c("beta","sigma_obs","sigma_process","pred","log_lik"), chains = mcmc_list$n_chain, iter = mcmc_list$n_mcmc, thin = mcmc_list$n_thin)
-  }     
+  }
   if(model_name == "marss") {
     if(is.null(marss$states)) states = rep(1, nrow(y))
     if(is.null(marss$obsVariances)) obsVariances = rep(1, nrow(y))
@@ -115,20 +115,20 @@ fit_stan <- function(y, x=NA, model_name = NA, est_drift = FALSE, est_mean = FAL
     col_indx_pos = matrix(sort(rep(1:N, M)), M, N)[which(!is.na(y))]
     n_pos = length(row_indx_pos)
     y = y[which(!is.na(y))]
-    
-    mod = rstan::stan(paste0(stan_dir, "/exec/marss.stan"), 
+
+    mod = rstan::stan(paste0(stan_dir, "/exec/marss.stan"),
       data = list("N"=nrow(y),"M"=ncol(y), "y"=y,
       "states"=states, "S" = max(states), "obsVariances"=obsVariances,
-      "n_obsvar" = max(obsVariances), "proVariances" = proVariances, 
+      "n_obsvar" = max(obsVariances), "proVariances" = proVariances,
         "n_provar" = max(proVariances),
       "trends"=trends, "n_trends" = max(trends),
         "n_pos" = n_pos,
         "col_indx_pos" = col_indx_pos,
         "row_indx_pos" = row_indx_pos,
-        "y_int"=round(y), 
+        "y_int"=round(y),
         "family"=family),
-      pars = c("pred","log_lik"), chains = mcmc_list$n_chain, 
+      pars = c("pred","log_lik"), chains = mcmc_list$n_chain,
       iter = mcmc_list$n_mcmc, thin = mcmc_list$n_thin)
-  }      
+  }
   return(mod)
 }

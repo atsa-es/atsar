@@ -25,7 +25,7 @@ fit_dfa <- function(y = y,
   chains = 1,
   control = list(adapt_delta = 0.99)) {
 
-  stan_dir = find.package("statss")
+  stan_dir = find.package("atsar")
   model = paste0(stan_dir, "/exec/dfa.stan")
 
   # parameters for DFA
