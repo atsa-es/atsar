@@ -1,7 +1,7 @@
 atsar (Applied Time Series Analysis in R)
 =========================================
 
-The atsar R package implements Bayesian time series models using Stan, primarily for illustrative purposes and teaching (University of Washington's Fish 507, Winter quarter 2017). The Stan webpage, and appropriate citation guidelines are [here](http://mc-stan.org/). You can cite the package as:
+The atsar R package implements Bayesian time series models using Stan, primarily for illustrative purposes and teaching (University of Washington's Fish 507, Applied Time Series Analysis). The Stan webpage, and appropriate citation guidelines are [here](http://mc-stan.org/). You can cite the package as:
 
 Citation: Ward, E.J., M.D. Scheuerell, and E.E. Holmes. 2018. 'atsar': Applied Time Series Analysis in R: an introduction to time series analysis for ecological and fisheries data with Stan. [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1158021.svg)](https://doi.org/10.5281/zenodo.1158021)
 
