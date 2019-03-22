@@ -105,8 +105,8 @@ fit_stan <- function(y, x=NA, model_name = NA, est_drift = FALSE, est_mean = FAL
   if(model_name == "marss") {
     if(is.null(marss$states)) states = rep(1, nrow(y))
     if(is.null(marss$obsVariances)) obsVariances = rep(1, nrow(y))
-    if(is.null(marss$proVariances)) proVariances = 1
-    if(is.null(marss$trends)) trends = 1
+    if(is.null(marss$proVariances)) proVariances = rep(1, max(states))
+    if(is.null(marss$trends)) trends = rep(1, max(states))
     proVariances = c(proVariances, 0) # to keep types in stan constant
     trends = c(trends, 0)     # to keep types in stan constant
     N = ncol(y)
