@@ -38,8 +38,7 @@ primarily for illustrative purposes and teaching (University of
 Washington’s Fish 507, Winter quarters). The Stan webpage, and
 appropriate citation guidelines are [here](http://mc-stan.org/).
 
-INSTALL
--------
+### INSTALL
 
 You can install the development version of the package with:
 
@@ -48,8 +47,7 @@ You can install the development version of the package with:
 devtools::install_github("nwfsc-timeseries/atsar")
 ```
 
-EXAMPLE
--------
+### EXAMPLE
 
 Simulate data:
 
@@ -96,8 +94,7 @@ arma1_model = fit_stan(y = s, model_name = "arma11")
 ss_model = fit_stan(y = s, model_name = "ss_ar", est_drift=FALSE)
 ```
 
-DOCUMENTATION
--------------
+### DOCUMENTATION
 
 -   [ATSA lab book](https://nwfsc-timeseries.github.io/atsa-labs/) -
     Many applications are covered in our Applied Time Series Analysis
@@ -109,8 +106,7 @@ DOCUMENTATION
     which includes several additional books and packages, [NWFSC time
     series page](https://nwfsc-timeseries.github.io/)
 
-CITATION
---------
+### CITATION
 
 Ward, E.J., M.D. Scheuerell, and E.E. Holmes. 2018. ‘atsar’: Applied
 Time Series Analysis in R: an introduction to time series analysis for

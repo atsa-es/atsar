@@ -42,7 +42,7 @@ knitr::opts_chunk$set(
 The atsar R package implements Bayesian time series models using Stan, primarily for illustrative purposes and teaching (University of Washington's Fish 507, Winter quarters). The Stan webpage, and appropriate citation guidelines are [here](http://mc-stan.org/). 
 
 
-## INSTALL {#install}
+### INSTALL {#install}
 
 You can install the development version of the package with:
 
@@ -51,7 +51,7 @@ You can install the development version of the package with:
 devtools::install_github("nwfsc-timeseries/atsar")
 ```
 
-## EXAMPLE {#example}
+### EXAMPLE {#example}
 
 Simulate data:
 
@@ -85,14 +85,14 @@ arma1_model = fit_stan(y = s, model_name = "arma11")
 ss_model = fit_stan(y = s, model_name = "ss_ar", est_drift=FALSE)
 ```
 
-## DOCUMENTATION {#documentation}
+### DOCUMENTATION {#documentation}
 
 - [ATSA lab book](https://nwfsc-timeseries.github.io/atsa-labs/) - Many applications are covered in our Applied Time Series Analysis book developed from the labs in our course.
 - [ATSA course website](https://nwfsc-timeseries.github.io/atsa/) - We have lectures and all material from our course on our course website.
 - Additional information can be found on the NWFSC time series page which includes several additional books and packages, 
 [NWFSC time series page](https://nwfsc-timeseries.github.io/)
 
-## CITATION {#cite}
+### CITATION {#cite}
 
 Ward, E.J., M.D. Scheuerell, and E.E. Holmes. 2018. 'atsar': Applied Time Series Analysis in R: an introduction to time series analysis for ecological and fisheries data with Stan.  [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1158021.svg)](https://doi.org/10.5281/zenodo.1158021)
 
