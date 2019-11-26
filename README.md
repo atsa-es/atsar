@@ -1,9 +1,45 @@
-atsar (Applied Time Series Analysis in R)
-=========================================
+<style>
+.nav{
+    border:1px solid #ccc;
+    border-width:1px 0;
+    list-style:none;
+    margin:0;
+    padding:0;
+    text-align:center;
+}
+.nav li{
+    display:inline-block;
+}
+.nav a{
+    display:inline-block;
+    padding:5px;
+}
+</style>
+<ul class="nav">
+<li>
+<a href="#install">Install</a>
+</li>
+<li>
+<a href="#documentation">Documentation</a>
+</li>
+<li>
+<a href="#example">Example</a>
+</li>
+<li>
+<a href="#cite">Citation</a>
+</li>
+<li>
+<a href="#license">License</a>
+</li>
+</ul>
 
-The atsar R package implements Bayesian time series models using Stan, primarily for illustrative purposes and teaching (University of Washington's Fish 507, Applied Time Series Analysis). The Stan webpage, and appropriate citation guidelines are [here](http://mc-stan.org/). You can cite the package as:
+The atsar R package implements Bayesian time series models using Stan,
+primarily for illustrative purposes and teaching (University of
+Washington’s Fish 507, Winter quarters). The Stan webpage, and
+appropriate citation guidelines are [here](http://mc-stan.org/).
 
-Citation: Ward, E.J., M.D. Scheuerell, and E.E. Holmes. 2018. 'atsar': Applied Time Series Analysis in R: an introduction to time series analysis for ecological and fisheries data with Stan. [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1158021.svg)](https://doi.org/10.5281/zenodo.1158021)
+INSTALL
+-------
 
 You can install the development version of the package with:
 
@@ -12,22 +48,25 @@ You can install the development version of the package with:
 devtools::install_github("nwfsc-timeseries/atsar")
 ```
 
-An example model
-----------------
+EXAMPLE
+-------
 
 Simulate data:
 
 ``` r
 library(rstan)
-#> Loading required package: ggplot2
 #> Loading required package: StanHeaders
-#> rstan (Version 2.16.2, packaged: 2017-07-03 09:24:58 UTC, GitRev: 2e1f913d3ca3)
+#> Loading required package: ggplot2
+#> rstan (Version 2.19.2, GitRev: 2e1f913d3ca3)
 #> For execution on a local, multicore CPU with excess RAM we recommend calling
+#> options(mc.cores = parallel::detectCores()).
+#> To avoid recompilation of unchanged Stan programs, we recommend calling
 #> rstan_options(auto_write = TRUE)
-#> options(mc.cores = parallel::detectCores())
+#> For improved execution time, we recommend calling
+#> Sys.setenv(LOCAL_CPPFLAGS = '-march=native')
+#> although this causes Stan to throw an error on a few processors.
 library(atsar)
 #> Loading required package: Rcpp
-#> Warning: package 'Rcpp' was built under R version 3.4.3
 set.seed(123)
 s = cumsum(rnorm(50))
 ```
@@ -57,7 +96,31 @@ arma1_model = fit_stan(y = s, model_name = "arma11")
 ss_model = fit_stan(y = s, model_name = "ss_ar", est_drift=FALSE)
 ```
 
-References
-==========
+DOCUMENTATION
+-------------
 
-Additional information can be found on our NWFSC time series page which includes several additional books and packages, [NWFSC time series page](https://nwfsc-timeseries.github.io/).
+-   [ATSA lab book](https://nwfsc-timeseries.github.io/atsa-labs/) -
+    Many applications are covered in our Applied Time Series Analysis
+    book developed from the labs in our course.
+-   [ATSA course website](https://nwfsc-timeseries.github.io/atsa/) - We
+    have lectures and all material from our course on our course
+    website.
+-   Additional information can be found on the NWFSC time series page
+    which includes several additional books and packages, [NWFSC time
+    series page](https://nwfsc-timeseries.github.io/)
+
+CITATION
+--------
+
+Ward, E.J., M.D. Scheuerell, and E.E. Holmes. 2018. ‘atsar’: Applied
+Time Series Analysis in R: an introduction to time series analysis for
+ecological and fisheries data with Stan.
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1158021.svg)](https://doi.org/10.5281/zenodo.1158021)
+
+### LICENSE
+
+MARSS was developed by US federal government employees as part of their
+official duties. As such, it is not subject to copyright protection and
+is considered “public domain” (see 17 USC § 105). Public domain software
+can be used by anyone for any purpose, and cannot be released under a
+copyright license.
