@@ -13,11 +13,36 @@ knitr::opts_chunk$set(
 )
 ```
 
-# atsar (Applied Time Series Analysis in R)
+<style>
+.nav{
+    border:1px solid #ccc;
+    border-width:1px 0;
+    list-style:none;
+    margin:0;
+    padding:0;
+    text-align:center;
+}
+.nav li{
+    display:inline-block;
+}
+.nav a{
+    display:inline-block;
+    padding:5px;
+}
+</style>
 
-The atsar R package implements Bayesian time series models using Stan, primarily for illustrative purposes and teaching (University of Washington's Fish 507, Winter quarter 2017). The Stan webpage, and appropriate citation guidelines are [here](http://mc-stan.org/). You can cite the package as:
+<ul class="nav">
+  <li><a href="#install">Install</a></li>
+  <li><a href="#documentation">Documentation</a></li>
+  <li><a href="#example">Example</a></li>
+  <li><a href="#cite">Citation</a></li>
+  <li><a href="#license">License</a></li>
+</ul>
 
-Citation: Ward, E.J., M.D. Scheuerell, and E.E. Holmes. 2018. 'atsar': Applied Time Series Analysis in R: an introduction to time series analysis for ecological and fisheries data with Stan.  [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1158021.svg)](https://doi.org/10.5281/zenodo.1158021)
+The atsar R package implements Bayesian time series models using Stan, primarily for illustrative purposes and teaching (University of Washington's Fish 507, Winter quarters). The Stan webpage, and appropriate citation guidelines are [here](http://mc-stan.org/). 
+
+
+### INSTALL {#install}
 
 You can install the development version of the package with:
 
@@ -26,7 +51,7 @@ You can install the development version of the package with:
 devtools::install_github("nwfsc-timeseries/atsar")
 ```
 
-## An example model
+### EXAMPLE {#example}
 
 Simulate data:
 
@@ -60,12 +85,19 @@ arma1_model = fit_stan(y = s, model_name = "arma11")
 ss_model = fit_stan(y = s, model_name = "ss_ar", est_drift=FALSE)
 ```
 
-# References
+### DOCUMENTATION {#documentation}
 
-The 507 class website is here, but will moved shortly because of transitions to Canvas. 
-
-[Fish 507 class website](https://catalyst.uw.edu/workspace/fish203/35553/243766)
-  
-Additional information can be found on the NWFSC time series page which includes several additional books and packages, 
+- [ATSA lab book](https://nwfsc-timeseries.github.io/atsa-labs/) - Many applications are covered in our Applied Time Series Analysis book developed from the labs in our course.
+- [ATSA course website](https://nwfsc-timeseries.github.io/atsa/) - We have lectures and all material from our course on our course website.
+- Additional information can be found on the NWFSC time series page which includes several additional books and packages, 
 [NWFSC time series page](https://nwfsc-timeseries.github.io/)
-...
+
+### CITATION {#cite}
+
+Ward, E.J., M.D. Scheuerell, and E.E. Holmes. 2018. 'atsar': Applied Time Series Analysis in R: an introduction to time series analysis for ecological and fisheries data with Stan.  [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1158021.svg)](https://doi.org/10.5281/zenodo.1158021)
+
+### LICENSE {#license}
+
+MARSS was developed by US federal government employees as part of their official duties. As such, it is not subject to copyright protection and is considered “public domain” (see 17 USC § 105). Public domain software can be used by anyone for any purpose, and cannot be released under a copyright license.
+
+

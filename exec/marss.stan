@@ -36,7 +36,7 @@ transformed parameters {
   // map predicted states to time series
   for(m in 1:M) {
     for(t in 1:N) {
-      pred[t,m] = x[t,states[M]];
+      pred[t,m] = x[t,states[m]];
     }
   }
 }

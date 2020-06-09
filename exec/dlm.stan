@@ -24,15 +24,14 @@ transformed parameters {
    }
   }
   for(i in 1:N) {
-    pred[i] = x[i] * beta[i];// + x0;
+    pred[i] = x[i] * beta[i];
   }
 
 }
 model {
-  //x0 ~ normal(0,10);
   sigma_obs ~ cauchy(0,5);
   for(k in 1:K) {
-    beta0[k] ~ normal(0,1);
+    beta0[k] ~ normal(0,10);
     sigma_process[k] ~ cauchy(0,5);
     pro_dev[k] ~ normal(0, sigma_process[k]);
   }
