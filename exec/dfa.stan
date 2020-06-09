@@ -83,7 +83,9 @@ transformed parameters {
     for(p in 1:P) {
       for(n in 1:N) {
         for(k in 1:num_covar) {
-          pred[p,n] = pred[p,n] + d_covar[k,n] * D[covar_indexing[p,k]];
+          if(covar_indexing[p,k]>0) {
+            pred[p,n] = pred[p,n] + d_covar[k,n] * D[covar_indexing[p,k]];
+          }
         }
       }
     }
