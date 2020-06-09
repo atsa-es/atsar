@@ -37,6 +37,7 @@ parameters {
   vector<lower=0>[K] zpos; // constrained positive values
   real<lower=0> sigma[nVariances];
   real ymiss[n_na];
+  vector[num_unique_covar] D; // optional covariates to estimate
 }
 transformed parameters {
   matrix[P,N] pred; //vector[P] pred[N];
@@ -76,6 +77,17 @@ transformed parameters {
   // N is sample size, P = time series, K = number trends
   // [PxN] = [PxK] * [KxN]
   pred = Z * x;
+
+  // include covariates if specified
+  if(num_covar > 0) {
+    for(p in 1:P) {
+      for(n in 1:N) {
+        for(k in 1:num_covar) {
+          pred[p,n] = pred[p,n] + d_covar[k,n] * D[covar_indexing[p,k]];
+        }
+      }
+    }
+  }
 }
 model {
   // initial state for each trend
@@ -86,6 +98,10 @@ model {
     }
   }
 
+  // prior on covar
+  if(num_covar > 0) {
+    D ~ normal(0,1);
+  }
   // prior on loadings
   z ~ normal(0, 1);
   zpos ~ normal(0, 1);
