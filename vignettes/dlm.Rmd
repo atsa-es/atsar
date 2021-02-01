@@ -22,6 +22,7 @@ library(atsar)
 # for optimizing stan on your machine,
 rstan_options(auto_write = TRUE)
 options(mc.cores = parallel::detectCores())
+mcmc_list = list(n_mcmc = 1000, n_burn = 500, n_chain = 1, n_thin = 1)
 ```
 
 ## Data
@@ -38,19 +39,23 @@ data(SalmonSurvCUI)
 We can start with fitting a DLM that includes no covariates, but a random walk in the intercept (mean). 
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
-mod = fit_stan(y = SalmonSurvCUI$logit.s, model_name="dlm-intercept")
+mod = fit_stan(y = SalmonSurvCUI$logit.s, model_name="dlm-intercept",mcmc_list=mcmc_list)
 ```
 
 Next, we can fit a model with constant intercept, but time-varying slope.
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
-mod2 = fit_stan(y = SalmonSurvCUI$logit.s, x = SalmonSurvCUI$CUI.apr, model_name="dlm-slope")
+mod2 = fit_stan(y = SalmonSurvCUI$logit.s, x = SalmonSurvCUI$CUI.apr, 
+  model_name="dlm-slope",mcmc_list=mcmc_list)
 ```
 
 Finally, we can fit a model with both a time varying intercept and a time varying slope. 
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
-mod = fit_stan(y = SalmonSurvCUI$logit.s, x = model.matrix(lm(SalmonSurvCUI$logit.s ~ SalmonSurvCUI$CUI.apr)), model_name="dlm")
+mod = fit_stan(y = SalmonSurvCUI$logit.s, 
+  x = model.matrix(lm(SalmonSurvCUI$logit.s ~ SalmonSurvCUI$CUI.apr)), 
+  model_name="dlm",
+  mcmc_list=mcmc_list)
 ```
 
 ## Fitting non-normal errors
@@ -64,13 +69,20 @@ y = tscount::ecoli
 We could fit a Poisson GLM in `fit_stan` with the following,
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
-mod = fit_stan(y=y$cases, x = model.matrix(lm(y$cases~1)), model="regression", family="poisson")
+mod = fit_stan(y=y$cases, 
+  x = model.matrix(lm(y$cases~1)), 
+  model="regression", 
+  family="poisson",
+  mcmc_list=mcmc_list)
 ```
 
 But the regression model assumes independent observations between time steps. To include the autocorrelation between time points, we can fit a DLM,
 
 ```{r, message=FALSE, warning=FALSE, results='hide'}
-mod = fit_stan(y$cases, model="dlm-intercept", family="poisson")
+mod = fit_stan(y$cases, 
+  model="dlm-intercept", 
+  family="poisson",
+  mcmc_list=mcmc_list)
 ```
 
 This more flexible model captures the data much better. Note: the credible intervals are on the mean, not new data.

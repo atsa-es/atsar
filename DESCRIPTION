@@ -8,6 +8,7 @@ Authors@R: c(
       email = "eric.ward@noaa.gov"),
     person(c("Mark", "D."), "Scheuerell", role = "aut"),
     person(c("Elizabeth", "E."), "Holmes", role = "aut"),
+    person(c("Kiva", "L."), "Oken", role = "aut"),
     person("Trustees of", "Columbia University", role = "cph"))
 Maintainer: The package maintainer <eric.ward@noaa.gov>
 Description: Bundles univarate and multivariate STAN scripts for FISH 507 class.

@@ -25,6 +25,7 @@ library(atsar)
 # for optimizing stan on your machine,
 rstan_options(auto_write = TRUE)
 options(mc.cores = parallel::detectCores())
+mcmc_list = list(n_mcmc = 1000, n_burn = 500, n_chain = 1, n_thin = 1)
 ```
 
 ## Data
@@ -58,7 +59,7 @@ Fitting the model using our function is done with this code,
 ```{r, warning=FALSE, message=FALSE, results='hide'}
 x = model.matrix(lm(Nile~1))
 lm_intercept = fit_stan(y = as.numeric(Nile), x = rep(1, length(Nile)),
-  model_name = "regression")
+  model_name = "regression",mcmc_list=mcmc_list)
 ```
 
 Coarse summaries of *stanfit* objects can be examined by typing one of the following
@@ -133,7 +134,7 @@ And the ${e}_{t} \sim Normal(0, \sigma)$. Remember back to the autocorrelated mo
 **Please fit the random walk model to the temperature data. Our function can do this by using model_name = 'rw'. Once you've fitted the model, plot the predicted values and 95% CIs, as we did above in the regression model.** 
 
 ```{r, eval = FALSE}
-rw = fit_stan(y = Temp, est_drift = FALSE, model_name = "rw")
+rw = fit_stan(y = Temp, est_drift = FALSE, model_name = "rw",mcmc_list=mcmc_list)
 ```
 
 ## 4. Autoregressive models 
@@ -143,7 +144,7 @@ A variation of the random walk model described previously is the autoregressive 
 
 ```{r eval = FALSE}
 ar1 = fit_stan(y = Temp, x = matrix(1, nrow = length(Temp), ncol = 1), 
-  model_name = "ar", est_drift=FALSE, P = 1)
+  model_name = "ar", est_drift=FALSE, P = 1,mcmc_list=mcmc_list)
 ```
 
 **To see the effect of this increased flexibility in estimating the autocorrelation, make a plot of the predictions from the AR(P=1) model and the RW model**
@@ -161,6 +162,6 @@ In the two above models, we'll refer to $q$ as the standard deviation of the pro
 **For this model, fit the above model with and without the autoregressive parameter $\phi$ and compare the estimated process and observation error variances. Code examples are given below**
 
 ```{r eval = FALSE}
-ss_ar = fit_stan(y = Temp, est_drift=FALSE, model_name = "ss_ar")
-ss_rw = fit_stan(y = Temp, est_drift=FALSE, model_name = "ss_rw")
+ss_ar = fit_stan(y = Temp, est_drift=FALSE, model_name = "ss_ar",mcmc_list=mcmc_list)
+ss_rw = fit_stan(y = Temp, est_drift=FALSE, model_name = "ss_rw",mcmc_list=mcmc_list)
 ```
