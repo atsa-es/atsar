@@ -1,16 +1,17 @@
 ---
-title: "Fitting time series models in package statss"
+title: "Fitting time series models in package atsar"
 author: "Eric Ward"
-date: "February 14, 2017"
+date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{tvvarss}
+  %\VignetteIndexEntry{atsar}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
 ```
 
 # Fitting time series models
@@ -20,8 +21,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r load, warning=FALSE, message=FALSE, results='hide'}
 library(rstan)
 library(devtools)
-devtools::install_github("nwfsc-timeseries/statss")
-library(statss)
+library(atsar)
 # for optimizing stan on your machine,
 rstan_options(auto_write = TRUE)
 options(mc.cores = parallel::detectCores())

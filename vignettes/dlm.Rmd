@@ -5,7 +5,7 @@ date: "February 14, 2017"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{tvvarss}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{knitr::knitr}
   \usepackage[utf8]{inputenc}
 ---
 

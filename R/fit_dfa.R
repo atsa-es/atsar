@@ -20,7 +20,7 @@ fit_dfa <- function(y = y,
   num_trends = 2,
   varIndx = NULL,
   zscore = TRUE,
-  estTrend = FALSE,
+  est_trend = FALSE,
   iter = 4000,
   chains = 1,
   control = list(adapt_delta = 0.99)) {
@@ -36,7 +36,7 @@ fit_dfa <- function(y = y,
   d_covar = covar;
   num_covar = nrow(d_covar)
   covar_indexing = covar_index
-  estimate_trend = as.numeric(estTrend)
+  estimate_trend = as.numeric(est_trend)
   if(!is.null(d_covar) & !is.null(covar_indexing)) {
     num_unique_covar = max(covar_indexing)
   }

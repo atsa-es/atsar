@@ -4,9 +4,18 @@
 \alias{fit_dfa}
 \title{fit_dfa is the primary function for fitting dynamic factor analysis to time series data.}
 \usage{
-fit_dfa(y = y, covar = NULL, covar_index = NULL, num_trends = 2,
-  varIndx = NULL, zscore = TRUE, iter = 4000, chains = 1,
-  control = list(adapt_delta = 0.99))
+fit_dfa(
+  y = y,
+  covar = NULL,
+  covar_index = NULL,
+  num_trends = 2,
+  varIndx = NULL,
+  zscore = TRUE,
+  est_trend = FALSE,
+  iter = 4000,
+  chains = 1,
+  control = list(adapt_delta = 0.99)
+)
 }
 \arguments{
 \item{y}{The response variable (numeric matrix)}
@@ -20,6 +29,8 @@ fit_dfa(y = y, covar = NULL, covar_index = NULL, num_trends = 2,
 \item{varIndx}{The vector indicating which time series share variances. By default, (1,2,3,...,n)}
 
 \item{zscore}{Whether or not to z-score data. Defaults to true.}
+
+\item{est_trend}{Whether or not to estimate a trend in the process model, defaults to FALSE}
 
 \item{iter}{Number of MCMC iterations, defaults to 4000.}
 

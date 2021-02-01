@@ -3,3 +3,7 @@
 export(fit_dfa)
 export(fit_stan)
 export(rotate_trends)
+import(Rcpp)
+import(methods)
+importFrom(rstan,sampling)
+useDynLib(atsar, .registration = TRUE)

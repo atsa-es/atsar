@@ -4,10 +4,19 @@
 \alias{fit_stan}
 \title{fit_stan is the primary function which calls pre-written stan scripts for time series data.}
 \usage{
-fit_stan(y, x = NA, model_name = NA, est_drift = FALSE,
-  est_mean = FALSE, P = 1, Q = 1, mcmc_list = list(n_mcmc = 1000, n_burn
-  = 500, n_chain = 3, n_thin = 1), family = "gaussian", marss = list(states
-  = NULL, obsVariances = NULL, proVariances = NULL, trends = NULL))
+fit_stan(
+  y,
+  x = NA,
+  model_name = NA,
+  est_drift = FALSE,
+  est_mean = FALSE,
+  P = 1,
+  Q = 1,
+  mcmc_list = list(n_mcmc = 1000, n_burn = 500, n_chain = 3, n_thin = 1),
+  family = "gaussian",
+  marss = list(states = NULL, obsVariances = NULL, proVariances = NULL, trends = NULL),
+  ...
+)
 }
 \arguments{
 \item{y}{The response variable (numeric)}
