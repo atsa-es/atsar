@@ -30,6 +30,7 @@ fit_stan <- function(y, x=NA, model_name = NA,
   # process potential NAs in data
   if(!is.matrix(y)) {
     pos_indx = which(!is.na(y))
+    y = y[pos_indx]
     n_pos = length(pos_indx)
     # catch case where -- needs to be 2 elements for stan vec
     if(length(pos_indx)==0) {
