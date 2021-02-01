@@ -2,8 +2,13 @@ Package: atsar
 Type: Package
 Title: This Package Fits Stan Routines To Univariate And Multivariate Time
     Series (Applied Time Series Analysis in R)
-Version: 0.1.1
-Author: Eric Ward, Mark Scheuerell, Eli Holmes
+Version: 0.1.3
+Authors@R: c(
+    person(c("Eric", "J."), "Ward", role = c("aut", "cre"), 
+      email = "eric.ward@noaa.gov"),
+    person(c("Mark", "D."), "Scheuerell", role = "ctb"),
+    person(c("Elizabeth", "E."), "Holmes", role = "ctb"),
+    person("Trustees of", "Columbia University", role = "cph"))
 Maintainer: The package maintainer <eric.ward@noaa.gov>
 Description: Bundles univarate and multivariate STAN scripts for FISH 507 class.
 License: GPL (>=3)
@@ -32,3 +37,4 @@ BugReports: https://github.com/nwfsc-timeseries/atsar/issues
 RoxygenNote: 7.1.1
 SystemRequirements: GNU make
 Biarch: true
+VignetteBuilder: knitr

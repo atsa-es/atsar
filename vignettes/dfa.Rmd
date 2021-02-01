@@ -1,11 +1,11 @@
 ---
-title: "Package statss"
+title: "Bayesian DFA in the atsar package"
 author: "Eric Ward"
-date: "February 14, 2017"
+date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{tvvarss}
-  %\VignetteEngine{knitr::knitr}
+  %\VignetteIndexEntry{dfa}
+  %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
 
