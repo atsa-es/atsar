@@ -4,14 +4,13 @@ author: "Eric Ward"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{atsar}
+  %\VignetteIndexEntry{Fitting time series models in package atsar}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-
 ```
 
 # Fitting time series models
@@ -20,11 +19,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r load, warning=FALSE, message=FALSE, results='hide'}
 library(rstan)
-library(devtools)
 library(atsar)
 # for optimizing stan on your machine,
-rstan_options(auto_write = TRUE)
-options(mc.cores = parallel::detectCores())
+#rstan_options(auto_write = TRUE)
+#options(mc.cores = parallel::detectCores())
 mcmc_list = list(n_mcmc = 1000, n_burn = 500, n_chain = 1, n_thin = 1)
 ```
 

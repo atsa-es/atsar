@@ -1,2 +1,9 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^README.Rmd
+^README-*
+^README\.Rmd
+^appveyor\.yml$
+^doc$
+^Meta$
+^\.github$
