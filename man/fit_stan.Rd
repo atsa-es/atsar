@@ -38,6 +38,8 @@ fit_stan(
 \item{family}{A named distribution for the observation model, defaults to gaussian}
 
 \item{marss}{A named list containing the following elements for specifying marss models: (states=NULL, obsVariances=NULL, proVariances=NULL, trends=NULL)}
+
+\item{...}{Any other arguments passed to [rstan::sampling()].}
 }
 \value{
 an object of class 'rstan'
