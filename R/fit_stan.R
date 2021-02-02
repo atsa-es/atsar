@@ -10,7 +10,7 @@
 #' @param mcmc_list A list of MCMC control parameters. These include the number of 'iterations' (default = 1000), burn in or warmup (default = 500), chains (default = 3), and thinning (default = 1)
 #' @param family A named distribution for the observation model, defaults to gaussian
 #' @param marss A named list containing the following elements for specifying marss models: (states=NULL, obsVariances=NULL, proVariances=NULL, trends=NULL)
-#'
+#' @param ... Any other arguments passed to [rstan::sampling()].
 #' @return an object of class 'rstan'
 #' @importFrom rstan sampling
 #' @export
@@ -49,13 +49,13 @@ fit_stan <- function(y, x=NA, model_name = NA,
 
   data <- NA
   if(model_name == "regression") {
-    if(class(x)!="matrix") x = matrix(x,ncol=1)
+    if(is.matrix(x)==FALSE) x = matrix(x,ncol=1)
     object <- stanmodels$regression
     data <- list("N"=length(y),"K"=dim(x)[2],"x"=x,"y"=y,"y_int"=round(y), "family"=family)
     pars <- c("beta","sigma","pred","log_lik")
   }
   if(model_name == "regression_cor") {
-    if(class(x)!="matrix") x = matrix(x,ncol=1)
+    if(is.matrix(x)==FALSE) x = matrix(x,ncol=1)
     object <- stanmodels$regression_cor
     data <- list("N"=length(y),"K"=dim(x)[2],"x"=x,"y"=y,"y_int"=round(y), "family"=family)
     pars <- c("beta","sigma","pred","phi","sigma_cor","log_lik")
@@ -126,21 +126,21 @@ fit_stan <- function(y, x=NA, model_name = NA,
     if(is.na(x)) {
       x <- matrix(0, nrow=length(y), ncol=1)
     }
-    if(class(x)!="matrix") x <- matrix(x,ncol=1)
+    if(is.matrix(x)==FALSE) x <- matrix(x,ncol=1)
     data <- list("N"=length(y),"K"=dim(x)[2],"x"=x,"y"=y,"y_int"=round(y), "family"=family,"n_pos"=n_pos,"pos_indx"=pos_indx)
     pars <- c("beta","sigma_obs","sigma_process","pred","intercept","log_lik")
   }
   if(model_name == "dlm-slope") {
     object = stanmodels$dlm_slope
     # constant estimated intercept, and time varying slopes
-    if(class(x)!="matrix") x <- matrix(x,ncol=1)
+    if(is.matrix(x)==FALSE) x <- matrix(x,ncol=1)
     data <- list("N"=length(y),"K"=dim(x)[2],"x"=x,"y"=y,"y_int"=round(y), "family"=family,"n_pos"=n_pos,"pos_indx"=pos_indx)
     pars <- c("beta","sigma_obs","sigma_process","pred","log_lik")
   }
   if(model_name == "dlm") {
     object = stanmodels$dlm
     # this is just a time-varying model with time varying intercept and slopes
-    if(class(x)!="matrix") x <- matrix(x,ncol=1)
+    if(is.matrix(x)==FALSE) x <- matrix(x,ncol=1)
     data <- list("N"=length(y),"K"=dim(x)[2],"x"=x,"y"=y,"y_int"=round(y), "family"=family,"n_pos"=n_pos,"pos_indx"=pos_indx)
     pars <- c("beta","sigma_obs","sigma_process","pred","log_lik")
   }

@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r install, eval=TRUE, warning=FALSE, message=FALSE, results='hide'}
 library(rstan)
 library(atsar)
-library(MARSS)
+
 # for optimizing stan on your machine,
 #rstan_options(auto_write = TRUE)
 #options(mc.cores = parallel::detectCores())
@@ -30,6 +30,7 @@ mcmc_list = list(n_mcmc = 1000, n_burn = 500, n_chain = 1, n_thin = 1)
 We'll use the same data in the MARSS manual, from Mark's example in the Columbia River. The data are accessed with 
 
 ```{r,eval=FALSE}
+library(MARSS)
 data(SalmonSurvCUI)
 ```
 
