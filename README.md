@@ -1,37 +1,4 @@
-<style>
-.nav{
-    border:1px solid #ccc;
-    border-width:1px 0;
-    list-style:none;
-    margin:0;
-    padding:0;
-    text-align:center;
-}
-.nav li{
-    display:inline-block;
-}
-.nav a{
-    display:inline-block;
-    padding:5px;
-}
-</style>
-<ul class="nav">
-<li>
-<a href="#install">Install</a>
-</li>
-<li>
-<a href="#documentation">Documentation</a>
-</li>
-<li>
-<a href="#example">Example</a>
-</li>
-<li>
-<a href="#cite">Citation</a>
-</li>
-<li>
-<a href="#license">License</a>
-</li>
-</ul>
+
 
 The atsar R package implements Bayesian time series models using Stan,
 primarily for illustrative purposes and teaching (University of
