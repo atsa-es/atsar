@@ -1,4 +1,41 @@
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/nwfsc-timeseries/atsar/workflows/R-CMD-check/badge.svg)](https://github.com/nwfsc-timeseries/atsar/actions)
+<!-- badges: end -->
 
+<style>
+.nav{
+    border:1px solid #ccc;
+    border-width:1px 0;
+    list-style:none;
+    margin:0;
+    padding:0;
+    text-align:center;
+}
+.nav li{
+    display:inline-block;
+}
+.nav a{
+    display:inline-block;
+    padding:5px;
+}
+</style>
+<ul class="nav">
+<li>
+<a href="#install">Install</a>
+</li>
+<li>
+<a href="#documentation">Documentation</a>
+</li>
+<li>
+<a href="#example">Example</a>
+</li>
+<li>
+<a href="#cite">Citation</a>
+</li>
+<li>
+<a href="#license">License</a>
+</li>
+</ul>
 
 The atsar R package implements Bayesian time series models using Stan,
 primarily for illustrative purposes and teaching (University of
@@ -22,16 +59,12 @@ Simulate data:
 library(rstan)
 #> Loading required package: StanHeaders
 #> Loading required package: ggplot2
-#> rstan (Version 2.19.2, GitRev: 2e1f913d3ca3)
+#> rstan (Version 2.21.2, GitRev: 2e1f913d3ca3)
 #> For execution on a local, multicore CPU with excess RAM we recommend calling
 #> options(mc.cores = parallel::detectCores()).
 #> To avoid recompilation of unchanged Stan programs, we recommend calling
 #> rstan_options(auto_write = TRUE)
-#> For improved execution time, we recommend calling
-#> Sys.setenv(LOCAL_CPPFLAGS = '-march=native')
-#> although this causes Stan to throw an error on a few processors.
 library(atsar)
-#> Loading required package: Rcpp
 set.seed(123)
 s = cumsum(rnorm(50))
 ```
