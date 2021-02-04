@@ -32,15 +32,16 @@ transformed parameters {
 }
 model {
   x0 ~ normal(0,10);
-  sigma_obs ~ cauchy(0,5);
+  sigma_obs ~ student_t(3,0,2);
   for(k in 1:K) {
     beta0[k] ~ normal(0,1);
-    sigma_process[k] ~ cauchy(0,5);
+    sigma_process[k] ~ student_t(3,0,2);
     pro_dev[k] ~ normal(0, sigma_process[k]);
   }
   if(family==1) {
     for(i in 1:(n_pos)) {
-      y[i] ~ normal(pred[pos_indx[i]], sigma_obs);
+      y ~ normal(pred, sigma_obs);
+      //y[i] ~ normal(pred[pos_indx[i]], sigma_obs);
     }
   }
   if(family==2) {
@@ -65,11 +66,11 @@ model {
   }
 }
 generated quantities {
-  vector[N] log_lik;
-  // regresssion example in loo() package
-  if(family==1) for (n in 1:N) log_lik[n] = normal_lpdf(y[n] | pred[n], sigma_obs);
-  if(family==2) for (n in 1:N) log_lik[n] = bernoulli_lpmf(y_int[n] | inv_logit(pred[n]));
-  if(family==3) for (n in 1:N) log_lik[n] = poisson_lpmf(y_int[n] | exp(pred[n]));
-  if(family==4) for (n in 1:N) log_lik[n] = gamma_lpdf(y[n] | sigma_obs, sigma_obs ./ exp(pred[n]));
-  if(family==5) for (n in 1:N) log_lik[n] = lognormal_lpdf(y[n] | pred[n], sigma_obs);
+  vector[n_pos] log_lik;
+  // regression example in loo() package
+  if(family==1) for (n in 1:n_pos) log_lik[n] = normal_lpdf(y[n] | pred[pos_indx[n]], sigma_obs);
+  if(family==2) for (n in 1:n_pos) log_lik[n] = bernoulli_lpmf(y_int[n] | inv_logit(pred[pos_indx[n]]));
+  if(family==3) for (n in 1:n_pos) log_lik[n] = poisson_lpmf(y_int[n] | exp(pred[pos_indx[n]]));
+  if(family==4) for (n in 1:n_pos) log_lik[n] = gamma_lpdf(y[n] | sigma_obs, sigma_obs ./ exp(pred[pos_indx[n]]));
+  if(family==5) for (n in 1:n_pos) log_lik[n] = lognormal_lpdf(y[n] | pred[pos_indx[n]], sigma_obs);
 }

@@ -195,7 +195,7 @@ public:
             current_statement_begin__ = 16;
             lp_accum__.add(normal_log<propto__>(stan::model::rvalue(y, stan::model::cons_list(stan::model::index_min_max(2, N), stan::model::nil_index_list()), "y"), stan::model::rvalue(pred, stan::model::cons_list(stan::model::index_min_max(2, N), stan::model::nil_index_list()), "pred"), sigma));
             current_statement_begin__ = 17;
-            lp_accum__.add(cauchy_log<propto__>(sigma, 0, 5));
+            lp_accum__.add(student_t_log<propto__>(sigma, 3, 0, 2));
         } catch (const std::exception& e) {
             stan::lang::rethrow_located(e, current_statement_begin__, prog_reader__());
             // Next line prevents compiler griping about no return

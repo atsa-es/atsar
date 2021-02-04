@@ -309,9 +309,9 @@ public:
             current_statement_begin__ = 23;
             lp_accum__.add(normal_log<propto__>(mu, 0, 2));
             current_statement_begin__ = 24;
-            lp_accum__.add(cauchy_log<propto__>(sigma_process, 0, 5));
+            lp_accum__.add(student_t_log<propto__>(sigma_process, 3, 0, 2));
             current_statement_begin__ = 25;
-            lp_accum__.add(cauchy_log<propto__>(sigma_obs, 0, 5));
+            lp_accum__.add(student_t_log<propto__>(sigma_obs, 3, 0, 2));
             current_statement_begin__ = 26;
             lp_accum__.add(normal_log<propto__>(pro_dev, 0, sigma_process));
             current_statement_begin__ = 27;

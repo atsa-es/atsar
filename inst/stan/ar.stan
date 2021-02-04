@@ -21,6 +21,6 @@ transformed parameters {
 }
 model {
   y[P:N] ~ normal(pred[P:N], sigma);
-  sigma ~ cauchy(0, 5);
+  sigma ~ student_t(3,0,2);
   phi ~ normal(0,1);
 }

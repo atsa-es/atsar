@@ -23,8 +23,8 @@ model {
   x0 ~ normal(0,10);
   phi ~ normal(0,10);
   mu ~ normal(0,10);
-  sigma_process ~ cauchy(0,5);
-  sigma_obs ~ cauchy(0,5);
+  sigma_process ~ student_t(3,0,2);
+  sigma_obs ~ student_t(3,0,2);
   pro_dev ~ normal(0, sigma_process);
   for(i in 1:n_pos) {
     y[i] ~ normal(pred[pos_indx[i]], sigma_obs);

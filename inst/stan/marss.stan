@@ -43,10 +43,10 @@ transformed parameters {
 model {
   x0 ~ normal(0,10);
   for(i in 1:n_obsvar) {
-    sigma_obs[i] ~ cauchy(0,5);
+    sigma_obs[i] ~ student_t(3,0,2);
   }
   for(s in 1:n_provar) {
-    sigma_process[s] ~ cauchy(0,5); // process var
+    sigma_process[s] ~ student_t(3,0,2); // process var
   }
   for(i in 1:n_trends) {
     U[i] ~ normal(0,1);

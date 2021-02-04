@@ -18,9 +18,9 @@ transformed parameters {
   }
 }
 model {
-  mu ~ cauchy(0, 2.5);
-  theta ~ cauchy(0, 2.5);
-  sigma ~ cauchy(0, 2.5);
+  mu ~ student_t(3,0,2);
+  theta ~ student_t(3,0,2);
+  sigma ~ student_t(3,0,2);
   for (t in 2:N) {
     y[t] ~ normal(pred[t],sigma);
   }

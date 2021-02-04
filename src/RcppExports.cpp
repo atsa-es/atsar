@@ -9,7 +9,6 @@ using namespace Rcpp;
 
 RcppExport SEXP _rcpp_module_boot_stan_fit4ar_mod();
 RcppExport SEXP _rcpp_module_boot_stan_fit4ar_drift_mod();
-RcppExport SEXP _rcpp_module_boot_stan_fit4dfa_mod();
 RcppExport SEXP _rcpp_module_boot_stan_fit4dlm_mod();
 RcppExport SEXP _rcpp_module_boot_stan_fit4dlm_int_mod();
 RcppExport SEXP _rcpp_module_boot_stan_fit4dlm_slope_mod();
@@ -29,7 +28,6 @@ RcppExport SEXP _rcpp_module_boot_stan_fit4ss_rw_drift_mod();
 static const R_CallMethodDef CallEntries[] = {
     {"_rcpp_module_boot_stan_fit4ar_mod", (DL_FUNC) &_rcpp_module_boot_stan_fit4ar_mod, 0},
     {"_rcpp_module_boot_stan_fit4ar_drift_mod", (DL_FUNC) &_rcpp_module_boot_stan_fit4ar_drift_mod, 0},
-    {"_rcpp_module_boot_stan_fit4dfa_mod", (DL_FUNC) &_rcpp_module_boot_stan_fit4dfa_mod, 0},
     {"_rcpp_module_boot_stan_fit4dlm_mod", (DL_FUNC) &_rcpp_module_boot_stan_fit4dlm_mod, 0},
     {"_rcpp_module_boot_stan_fit4dlm_int_mod", (DL_FUNC) &_rcpp_module_boot_stan_fit4dlm_int_mod, 0},
     {"_rcpp_module_boot_stan_fit4dlm_slope_mod", (DL_FUNC) &_rcpp_module_boot_stan_fit4dlm_slope_mod, 0},

@@ -525,12 +525,12 @@ public:
             current_statement_begin__ = 45;
             for (int i = 1; i <= n_obsvar; ++i) {
                 current_statement_begin__ = 46;
-                lp_accum__.add(cauchy_log<propto__>(get_base1(sigma_obs, i, "sigma_obs", 1), 0, 5));
+                lp_accum__.add(student_t_log<propto__>(get_base1(sigma_obs, i, "sigma_obs", 1), 3, 0, 2));
             }
             current_statement_begin__ = 48;
             for (int s = 1; s <= n_provar; ++s) {
                 current_statement_begin__ = 49;
-                lp_accum__.add(cauchy_log<propto__>(get_base1(sigma_process, s, "sigma_process", 1), 0, 5));
+                lp_accum__.add(student_t_log<propto__>(get_base1(sigma_process, s, "sigma_process", 1), 3, 0, 2));
             }
             current_statement_begin__ = 51;
             for (int i = 1; i <= n_trends; ++i) {

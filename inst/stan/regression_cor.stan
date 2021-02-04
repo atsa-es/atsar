@@ -26,7 +26,7 @@ transformed parameters {
 model {
   phi ~ normal(0,1);
   beta ~ normal(0,2);
-  sigma ~ cauchy(0,5);
+  sigma ~ student_t(3,0,2);
   if(family==1) y ~ normal(pred, sigma_cor);
   if(family==2) y_int ~ bernoulli_logit(pred);
   if(family==3) y_int ~ poisson_log(pred);

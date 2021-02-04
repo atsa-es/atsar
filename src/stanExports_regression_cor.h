@@ -324,7 +324,7 @@ public:
             current_statement_begin__ = 28;
             lp_accum__.add(normal_log<propto__>(beta, 0, 2));
             current_statement_begin__ = 29;
-            lp_accum__.add(cauchy_log<propto__>(sigma, 0, 5));
+            lp_accum__.add(student_t_log<propto__>(sigma, 3, 0, 2));
             current_statement_begin__ = 30;
             if (as_bool(logical_eq(family, 1))) {
                 current_statement_begin__ = 30;

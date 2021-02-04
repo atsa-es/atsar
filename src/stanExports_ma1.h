@@ -261,11 +261,11 @@ public:
             }
             // model body
             current_statement_begin__ = 21;
-            lp_accum__.add(cauchy_log<propto__>(mu, 0, 2.5));
+            lp_accum__.add(student_t_log<propto__>(mu, 3, 0, 2));
             current_statement_begin__ = 22;
-            lp_accum__.add(cauchy_log<propto__>(theta, 0, 2.5));
+            lp_accum__.add(student_t_log<propto__>(theta, 3, 0, 2));
             current_statement_begin__ = 23;
-            lp_accum__.add(cauchy_log<propto__>(sigma, 0, 2.5));
+            lp_accum__.add(student_t_log<propto__>(sigma, 3, 0, 2));
             current_statement_begin__ = 24;
             for (int t = 2; t <= N; ++t) {
                 current_statement_begin__ = 25;

@@ -283,11 +283,11 @@ public:
             }
             // model body
             current_statement_begin__ = 26;
-            lp_accum__.add(cauchy_log<propto__>(mu, 0, 2.5));
+            lp_accum__.add(student_t_log<propto__>(mu, 3, 0, 2));
             current_statement_begin__ = 27;
-            lp_accum__.add(cauchy_log<propto__>(theta, 0, 2.5));
+            lp_accum__.add(student_t_log<propto__>(theta, 3, 0, 2));
             current_statement_begin__ = 28;
-            lp_accum__.add(cauchy_log<propto__>(sigma, 0, 2.5));
+            lp_accum__.add(student_t_log<propto__>(sigma, 3, 0, 2));
             current_statement_begin__ = 29;
             lp_accum__.add(normal_log<propto__>(y, pred, sigma));
         } catch (const std::exception& e) {

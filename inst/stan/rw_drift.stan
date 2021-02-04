@@ -15,7 +15,7 @@ transformed parameters {
 }
 model {
   y[2:N] ~ normal(pred[2:N], sigma);
-  sigma ~ cauchy(0, 5);
+  sigma ~ student_t(3,0,2);
   mu ~ normal(0,1);
 }
 generated quantities {
