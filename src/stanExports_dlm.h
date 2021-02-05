@@ -33,7 +33,7 @@ static int current_statement_begin__;
 stan::io::program_reader prog_reader__() {
     stan::io::program_reader reader;
     reader.add_event(0, 0, "start", "model_dlm");
-    reader.add_event(76, 74, "end", "model_dlm");
+    reader.add_event(77, 75, "end", "model_dlm");
     return reader;
 }
 #include <stan_meta_header.hpp>
@@ -342,7 +342,7 @@ public:
                     current_statement_begin__ = 25;
                     stan::model::assign(beta, 
                                 stan::model::cons_list(stan::model::index_uni(i), stan::model::cons_list(stan::model::index_uni(k), stan::model::nil_index_list())), 
-                                (get_base1(get_base1(beta, (i - 1), "beta", 1), k, "beta", 2) + get_base1(get_base1(pro_dev, (i - 1), "pro_dev", 1), k, "pro_dev", 2)), 
+                                (get_base1(get_base1(beta, (i - 1), "beta", 1), k, "beta", 2) + (get_base1(sigma_process, k, "sigma_process", 1) * get_base1(get_base1(pro_dev, (i - 1), "pro_dev", 1), k, "pro_dev", 2))), 
                                 "assigning variable beta");
                 }
             }
@@ -387,46 +387,46 @@ public:
                 lp_accum__.add(normal_log<propto__>(get_base1(beta0, k, "beta0", 1), 0, 10));
                 current_statement_begin__ = 37;
                 lp_accum__.add(student_t_log<propto__>(get_base1(sigma_process, k, "sigma_process", 1), 3, 0, 2));
-                current_statement_begin__ = 38;
-                lp_accum__.add(normal_log<propto__>(get_base1(pro_dev, k, "pro_dev", 1), 0, get_base1(sigma_process, k, "sigma_process", 1)));
+                current_statement_begin__ = 39;
+                lp_accum__.add(std_normal_log<propto__>(get_base1(pro_dev, k, "pro_dev", 1)));
             }
-            current_statement_begin__ = 40;
+            current_statement_begin__ = 41;
             if (as_bool(logical_eq(family, 1))) {
-                current_statement_begin__ = 41;
+                current_statement_begin__ = 42;
                 for (int i = 1; i <= n_pos; ++i) {
-                    current_statement_begin__ = 42;
+                    current_statement_begin__ = 43;
                     lp_accum__.add(normal_log<propto__>(get_base1(y, i, "y", 1), get_base1(pred, get_base1(pos_indx, i, "pos_indx", 1), "pred", 1), sigma_obs));
                 }
             }
-            current_statement_begin__ = 45;
+            current_statement_begin__ = 46;
             if (as_bool(logical_eq(family, 2))) {
-                current_statement_begin__ = 46;
+                current_statement_begin__ = 47;
                 for (int i = 1; i <= n_pos; ++i) {
-                    current_statement_begin__ = 47;
+                    current_statement_begin__ = 48;
                     lp_accum__.add(bernoulli_logit_log<propto__>(get_base1(y_int, i, "y_int", 1), get_base1(pred, get_base1(pos_indx, i, "pos_indx", 1), "pred", 1)));
                 }
             }
-            current_statement_begin__ = 50;
+            current_statement_begin__ = 51;
             if (as_bool(logical_eq(family, 3))) {
-                current_statement_begin__ = 51;
+                current_statement_begin__ = 52;
                 for (int i = 1; i <= n_pos; ++i) {
-                    current_statement_begin__ = 52;
+                    current_statement_begin__ = 53;
                     lp_accum__.add(poisson_log_log<propto__>(get_base1(y_int, i, "y_int", 1), get_base1(pred, get_base1(pos_indx, i, "pos_indx", 1), "pred", 1)));
                 }
             }
-            current_statement_begin__ = 55;
+            current_statement_begin__ = 56;
             if (as_bool(logical_eq(family, 4))) {
-                current_statement_begin__ = 56;
+                current_statement_begin__ = 57;
                 for (int i = 1; i <= n_pos; ++i) {
-                    current_statement_begin__ = 57;
+                    current_statement_begin__ = 58;
                     lp_accum__.add(gamma_log<propto__>(get_base1(y, i, "y", 1), sigma_obs, (sigma_obs / stan::math::exp(get_base1(pred, get_base1(pos_indx, i, "pos_indx", 1), "pred", 1)))));
                 }
             }
-            current_statement_begin__ = 60;
+            current_statement_begin__ = 61;
             if (as_bool(logical_eq(family, 5))) {
-                current_statement_begin__ = 61;
+                current_statement_begin__ = 62;
                 for (int i = 1; i <= n_pos; ++i) {
-                    current_statement_begin__ = 62;
+                    current_statement_begin__ = 63;
                     lp_accum__.add(lognormal_log<propto__>(get_base1(y, i, "y", 1), get_base1(pred, get_base1(pos_indx, i, "pos_indx", 1), "pred", 1), sigma_obs));
                 }
             }
@@ -560,7 +560,7 @@ public:
                     current_statement_begin__ = 25;
                     stan::model::assign(beta, 
                                 stan::model::cons_list(stan::model::index_uni(i), stan::model::cons_list(stan::model::index_uni(k), stan::model::nil_index_list())), 
-                                (get_base1(get_base1(beta, (i - 1), "beta", 1), k, "beta", 2) + get_base1(get_base1(pro_dev, (i - 1), "pro_dev", 1), k, "pro_dev", 2)), 
+                                (get_base1(get_base1(beta, (i - 1), "beta", 1), k, "beta", 2) + (get_base1(sigma_process, k, "sigma_process", 1) * get_base1(get_base1(pro_dev, (i - 1), "pro_dev", 1), k, "pro_dev", 2))), 
                                 "assigning variable beta");
                 }
             }
@@ -592,61 +592,61 @@ public:
             }
             if (!include_gqs__) return;
             // declare and define generated quantities
-            current_statement_begin__ = 67;
+            current_statement_begin__ = 68;
             validate_non_negative_index("log_lik", "n_pos", n_pos);
             Eigen::Matrix<double, Eigen::Dynamic, 1> log_lik(n_pos);
             stan::math::initialize(log_lik, DUMMY_VAR__);
             stan::math::fill(log_lik, DUMMY_VAR__);
             // generated quantities statements
-            current_statement_begin__ = 69;
+            current_statement_begin__ = 70;
             if (as_bool(logical_eq(family, 1))) {
-                current_statement_begin__ = 69;
+                current_statement_begin__ = 70;
                 for (int n = 1; n <= n_pos; ++n) {
-                    current_statement_begin__ = 69;
+                    current_statement_begin__ = 70;
                     stan::model::assign(log_lik, 
                                 stan::model::cons_list(stan::model::index_uni(n), stan::model::nil_index_list()), 
                                 normal_log(get_base1(y, n, "y", 1), get_base1(pred, get_base1(pos_indx, n, "pos_indx", 1), "pred", 1), sigma_obs), 
                                 "assigning variable log_lik");
                 }
             }
-            current_statement_begin__ = 70;
+            current_statement_begin__ = 71;
             if (as_bool(logical_eq(family, 2))) {
-                current_statement_begin__ = 70;
+                current_statement_begin__ = 71;
                 for (int n = 1; n <= n_pos; ++n) {
-                    current_statement_begin__ = 70;
+                    current_statement_begin__ = 71;
                     stan::model::assign(log_lik, 
                                 stan::model::cons_list(stan::model::index_uni(n), stan::model::nil_index_list()), 
                                 bernoulli_log(get_base1(y_int, n, "y_int", 1), inv_logit(get_base1(pred, get_base1(pos_indx, n, "pos_indx", 1), "pred", 1))), 
                                 "assigning variable log_lik");
                 }
             }
-            current_statement_begin__ = 71;
+            current_statement_begin__ = 72;
             if (as_bool(logical_eq(family, 3))) {
-                current_statement_begin__ = 71;
+                current_statement_begin__ = 72;
                 for (int n = 1; n <= n_pos; ++n) {
-                    current_statement_begin__ = 71;
+                    current_statement_begin__ = 72;
                     stan::model::assign(log_lik, 
                                 stan::model::cons_list(stan::model::index_uni(n), stan::model::nil_index_list()), 
                                 poisson_log(get_base1(y_int, n, "y_int", 1), stan::math::exp(get_base1(pred, get_base1(pos_indx, n, "pos_indx", 1), "pred", 1))), 
                                 "assigning variable log_lik");
                 }
             }
-            current_statement_begin__ = 72;
+            current_statement_begin__ = 73;
             if (as_bool(logical_eq(family, 4))) {
-                current_statement_begin__ = 72;
+                current_statement_begin__ = 73;
                 for (int n = 1; n <= n_pos; ++n) {
-                    current_statement_begin__ = 72;
+                    current_statement_begin__ = 73;
                     stan::model::assign(log_lik, 
                                 stan::model::cons_list(stan::model::index_uni(n), stan::model::nil_index_list()), 
                                 gamma_log(get_base1(y, n, "y", 1), sigma_obs, (sigma_obs / stan::math::exp(get_base1(pred, get_base1(pos_indx, n, "pos_indx", 1), "pred", 1)))), 
                                 "assigning variable log_lik");
                 }
             }
-            current_statement_begin__ = 73;
+            current_statement_begin__ = 74;
             if (as_bool(logical_eq(family, 5))) {
-                current_statement_begin__ = 73;
+                current_statement_begin__ = 74;
                 for (int n = 1; n <= n_pos; ++n) {
-                    current_statement_begin__ = 73;
+                    current_statement_begin__ = 74;
                     stan::model::assign(log_lik, 
                                 stan::model::cons_list(stan::model::index_uni(n), stan::model::nil_index_list()), 
                                 lognormal_log(get_base1(y, n, "y", 1), get_base1(pred, get_base1(pos_indx, n, "pos_indx", 1), "pred", 1), sigma_obs), 
@@ -654,7 +654,7 @@ public:
                 }
             }
             // validate, write generated quantities
-            current_statement_begin__ = 67;
+            current_statement_begin__ = 68;
             size_t log_lik_j_1_max__ = n_pos;
             for (size_t j_1__ = 0; j_1__ < log_lik_j_1_max__; ++j_1__) {
                 vars__.push_back(log_lik(j_1__));

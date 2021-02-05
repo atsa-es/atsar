@@ -22,7 +22,7 @@ transformed parameters {
   for(k in 1:K) {
    beta[1,k] = beta0[k];
    for(i in 2:N) {
-    beta[i,k] = beta[i-1,k] + pro_dev[i-1,k];
+    beta[i,k] = beta[i-1,k] + sigma_process[k]*pro_dev[i-1,k];
    }
   }
   for(i in 1:N) {
@@ -35,7 +35,8 @@ model {
   for(k in 1:K) {
     beta0[k] ~ normal(0,10);
     sigma_process[k] ~ student_t(3,0,2);
-    pro_dev[k] ~ normal(0, sigma_process[k]);
+    //pro_dev[k] ~ normal(0, sigma_process[k]);
+    pro_dev[k] ~ std_normal();
   }
   if(family==1) {
     for(i in 1:(n_pos)) {

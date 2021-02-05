@@ -16,7 +16,7 @@ transformed parameters {
   vector[N] pred;
   pred[1] = x0;
   for(i in 2:N) {
-    pred[i] = mu + phi*(pred[i-1] - mu) + pro_dev[i-1];
+    pred[i] = mu + phi*(pred[i-1] - mu) + sigma_process*pro_dev[i-1];
   }
 }
 model {
@@ -25,7 +25,7 @@ model {
   mu ~ normal(0,10);
   sigma_process ~ student_t(3,0,2);
   sigma_obs ~ student_t(3,0,2);
-  pro_dev ~ normal(0, sigma_process);
+  pro_dev ~ std_normal();//normal(0, sigma_process);
   for(i in 1:n_pos) {
     y[i] ~ normal(pred[pos_indx[i]], sigma_obs);
   }
