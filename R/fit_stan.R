@@ -29,6 +29,7 @@ fit_stan <- function(y, x=NA, model_name = NA,
 
   # process potential NAs in data
   if(!is.matrix(y)) {
+    N = length(y)
     pos_indx = which(!is.na(y))
     y = y[pos_indx]
     n_pos = length(pos_indx)
@@ -92,27 +93,27 @@ fit_stan <- function(y, x=NA, model_name = NA,
   }
   if(model_name == "ss_rw" & est_drift == FALSE) {
     object <- stanmodels$ss_rw
-    data <- list("y"=y,"N"=length(y),"n_pos"=n_pos,"pos_indx"=pos_indx)
+    data <- list("y"=y,"N"=N,"n_pos"=n_pos,"pos_indx"=pos_indx)
     pars <- c("sigma_process","pred", "sigma_obs")
   }
   if(model_name == "ss_rw" & est_drift == TRUE) {
     object <- stanmodels$ss_rw_drift
-    data <- list("y"=y,"N"=length(y),"n_pos"=n_pos,"pos_indx"=pos_indx)
+    data <- list("y"=y,"N"=N,"n_pos"=n_pos,"pos_indx"=pos_indx)
     pars <- c("sigma_process","pred", "sigma_obs", "mu")
   }
   if(model_name == "ss_ar" & est_drift == FALSE) {
     object <- stanmodels$ss_ar
-    data <- list("y"=y,"N"=length(y),"n_pos"=n_pos,"pos_indx"=pos_indx)
+    data <- list("y"=y,"N"=N,"n_pos"=n_pos,"pos_indx"=pos_indx)
     pars <- c("sigma_process","pred", "sigma_obs", "phi")
   }
   if(model_name == "ss_ar" & est_drift == TRUE) {
     object <- stanmodels$ss_ar_drift
-    data <- list("y"=y,"N"=length(y),"n_pos"=n_pos,"pos_indx"=pos_indx)
+    data <- list("y"=y,"N"=N,"n_pos"=n_pos,"pos_indx"=pos_indx)
     pars <- c("sigma_process","pred", "sigma_obs", "mu", "phi")
   }
   if(model_name == "ss_ar" & est_mean == TRUE) {
     object <- stanmodels$ss_ar_mean
-    data <- list("y"=y,"N"=length(y),"n_pos"=n_pos,"pos_indx"=pos_indx)
+    data <- list("y"=y,"N"=N,"n_pos"=n_pos,"pos_indx"=pos_indx)
     pars <- c("sigma_process","pred", "sigma_obs", "mu", "phi")
   }
   if(model_name == "arma11") {
@@ -127,21 +128,21 @@ fit_stan <- function(y, x=NA, model_name = NA,
       x <- matrix(0, nrow=length(y), ncol=1)
     }
     if(is.matrix(x)==FALSE) x <- matrix(x,ncol=1)
-    data <- list("N"=length(y),"K"=dim(x)[2],"x"=x,"y"=y,"y_int"=round(y), "family"=family,"n_pos"=n_pos,"pos_indx"=pos_indx)
+    data <- list("N"=N,"K"=dim(x)[2],"x"=x,"y"=y,"y_int"=round(y), "family"=family,"n_pos"=n_pos,"pos_indx"=pos_indx)
     pars <- c("beta","sigma_obs","sigma_process","pred","intercept","log_lik")
   }
   if(model_name == "dlm-slope") {
     object = stanmodels$dlm_slope
     # constant estimated intercept, and time varying slopes
     if(is.matrix(x)==FALSE) x <- matrix(x,ncol=1)
-    data <- list("N"=length(y),"K"=dim(x)[2],"x"=x,"y"=y,"y_int"=round(y), "family"=family,"n_pos"=n_pos,"pos_indx"=pos_indx)
+    data <- list("N"=N,"K"=dim(x)[2],"x"=x,"y"=y,"y_int"=round(y), "family"=family,"n_pos"=n_pos,"pos_indx"=pos_indx)
     pars <- c("beta","sigma_obs","sigma_process","pred","log_lik")
   }
   if(model_name == "dlm") {
     object = stanmodels$dlm
     # this is just a time-varying model with time varying intercept and slopes
     if(is.matrix(x)==FALSE) x <- matrix(x,ncol=1)
-    data <- list("N"=length(y),"K"=dim(x)[2],"x"=x,"y"=y,"y_int"=round(y), "family"=family,"n_pos"=n_pos,"pos_indx"=pos_indx)
+    data <- list("N"=N,"K"=dim(x)[2],"x"=x,"y"=y,"y_int"=round(y), "family"=family,"n_pos"=n_pos,"pos_indx"=pos_indx)
     pars <- c("beta","sigma_obs","sigma_process","pred","log_lik")
   }
   if(model_name == "marss") {
