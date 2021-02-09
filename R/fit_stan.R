@@ -9,7 +9,9 @@
 #' @param Q The order of the ma model, with minimum value = 1 (default).
 #' @param mcmc_list A list of MCMC control parameters. These include the number of 'iterations' (default = 1000), burn in or warmup (default = 500), chains (default = 3), and thinning (default = 1)
 #' @param family A named distribution for the observation model, defaults to gaussian
-#' @param marss A named list containing the following elements for specifying marss models: (states=NULL, obsVariances=NULL, proVariances=NULL, trends=NULL)
+#' @param marss A named list containing the following elements for specifying marss models: (states=NULL, obsVariances=NULL, proVariances=NULL, trends=NULL
+#' @param map_estimation Whether to do maximum a posteriori estimation via [rstan::optimizing()] (defualts to FALSE)
+#' @param hessian Whether to return hessian if map_estimation is TRUE via [rstan::optimizing()]
 #' @param ... Any other arguments passed to [rstan::sampling()].
 #' @return an object of class 'rstan'
 #' @importFrom rstan sampling
@@ -22,7 +24,9 @@ fit_stan <- function(y, x=NA, model_name = NA,
                      Q = 1,
                      mcmc_list = list(n_mcmc = 1000, n_burn = 500, n_chain = 3, n_thin = 1),
                      family="gaussian",
-                     marss = list(states=NULL, obsVariances=NULL, proVariances=NULL, trends=NULL),...) {
+                     marss = list(states=NULL, obsVariances=NULL, proVariances=NULL, trends=NULL),
+                     map_estimation = FALSE,
+                     hessian=FALSE,...) {
 
   dist <- c("gaussian", "binomial", "poisson", "gamma", "lognormal")
   family <- which(dist==family)
@@ -173,7 +177,7 @@ fit_stan <- function(y, x=NA, model_name = NA,
     #   pars = c("pred","log_lik"), chains = mcmc_list$n_chain,
     #   iter = mcmc_list$n_mcmc, thin = mcmc_list$n_thin)
   }
-
+  if(map_estimation==FALSE) {
   out <- rstan::sampling(object=object,
                          data = data,
                          pars = pars,
@@ -182,6 +186,11 @@ fit_stan <- function(y, x=NA, model_name = NA,
                          iter = mcmc_list$n_mcmc,
                          thin = mcmc_list$n_thin,
                          chains = mcmc_list$n_chain,...)
+  } else {
+    out <- rstan::optimizing(object=object,
+                           data = data,
+                           hessian = hessian,...)
+  }
 
   return(out)
 }
