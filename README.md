@@ -51,6 +51,10 @@ You can install the development version of the package with:
 devtools::install_github("nwfsc-timeseries/atsar")
 ```
 
+Windows Users: If installation fails because of a warning that a package was built under a later R version than you have on your computer, use
+
+Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS=TRUE)
+
 ### EXAMPLE
 
 Simulate data:
