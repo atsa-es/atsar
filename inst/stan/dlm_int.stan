@@ -20,7 +20,7 @@ transformed parameters {
   vector[N] intercept;
   intercept[1] = x0;
   for(i in 2:N) {
-    intercept[i] = intercept[i-1] + pro_dev[i-1];
+    intercept[i] = intercept[i-1] + sigma_process*pro_dev[i-1];
   }
   pred = x * beta + intercept;
 }
@@ -28,7 +28,7 @@ model {
   x0 ~ normal(0,10);
   sigma_process ~ student_t(3,0,2);
   sigma_obs ~ student_t(3,0,2);
-  pro_dev ~ normal(0, sigma_process);
+  pro_dev ~ std_normal();//normal(0, sigma_process);
   if(family==1) {
     for(i in 1:(n_pos)) {
       y[i] ~ normal(pred[pos_indx[i]], sigma_obs);

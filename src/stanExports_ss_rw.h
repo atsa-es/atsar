@@ -266,7 +266,7 @@ public:
                 current_statement_begin__ = 17;
                 stan::model::assign(pred, 
                             stan::model::cons_list(stan::model::index_uni(i), stan::model::nil_index_list()), 
-                            (get_base1(pred, (i - 1), "pred", 1) + get_base1(pro_dev, (i - 1), "pro_dev", 1)), 
+                            (get_base1(pred, (i - 1), "pred", 1) + (sigma_process * get_base1(pro_dev, (i - 1), "pro_dev", 1))), 
                             "assigning variable pred");
             }
             // validate transformed parameters
@@ -289,7 +289,7 @@ public:
             current_statement_begin__ = 23;
             lp_accum__.add(student_t_log<propto__>(sigma_obs, 3, 0, 2));
             current_statement_begin__ = 24;
-            lp_accum__.add(normal_log<propto__>(pro_dev, 0, sigma_process));
+            lp_accum__.add(std_normal_log<propto__>(pro_dev));
             current_statement_begin__ = 25;
             for (int i = 1; i <= n_pos; ++i) {
                 current_statement_begin__ = 26;
@@ -390,7 +390,7 @@ public:
                 current_statement_begin__ = 17;
                 stan::model::assign(pred, 
                             stan::model::cons_list(stan::model::index_uni(i), stan::model::nil_index_list()), 
-                            (get_base1(pred, (i - 1), "pred", 1) + get_base1(pro_dev, (i - 1), "pro_dev", 1)), 
+                            (get_base1(pred, (i - 1), "pred", 1) + (sigma_process * get_base1(pro_dev, (i - 1), "pro_dev", 1))), 
                             "assigning variable pred");
             }
             if (!include_gqs__ && !include_tparams__) return;

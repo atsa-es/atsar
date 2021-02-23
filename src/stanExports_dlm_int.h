@@ -339,7 +339,7 @@ public:
                 current_statement_begin__ = 23;
                 stan::model::assign(intercept, 
                             stan::model::cons_list(stan::model::index_uni(i), stan::model::nil_index_list()), 
-                            (get_base1(intercept, (i - 1), "intercept", 1) + get_base1(pro_dev, (i - 1), "pro_dev", 1)), 
+                            (get_base1(intercept, (i - 1), "intercept", 1) + (sigma_process * get_base1(pro_dev, (i - 1), "pro_dev", 1))), 
                             "assigning variable intercept");
             }
             current_statement_begin__ = 25;
@@ -373,7 +373,7 @@ public:
             current_statement_begin__ = 30;
             lp_accum__.add(student_t_log<propto__>(sigma_obs, 3, 0, 2));
             current_statement_begin__ = 31;
-            lp_accum__.add(normal_log<propto__>(pro_dev, 0, sigma_process));
+            lp_accum__.add(std_normal_log<propto__>(pro_dev));
             current_statement_begin__ = 32;
             if (as_bool(logical_eq(family, 1))) {
                 current_statement_begin__ = 33;
@@ -527,7 +527,7 @@ public:
                 current_statement_begin__ = 23;
                 stan::model::assign(intercept, 
                             stan::model::cons_list(stan::model::index_uni(i), stan::model::nil_index_list()), 
-                            (get_base1(intercept, (i - 1), "intercept", 1) + get_base1(pro_dev, (i - 1), "pro_dev", 1)), 
+                            (get_base1(intercept, (i - 1), "intercept", 1) + (sigma_process * get_base1(pro_dev, (i - 1), "pro_dev", 1))), 
                             "assigning variable intercept");
             }
             current_statement_begin__ = 25;

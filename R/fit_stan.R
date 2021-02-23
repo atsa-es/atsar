@@ -9,7 +9,9 @@
 #' @param Q The order of the ma model, with minimum value = 1 (default).
 #' @param mcmc_list A list of MCMC control parameters. These include the number of 'iterations' (default = 1000), burn in or warmup (default = 500), chains (default = 3), and thinning (default = 1)
 #' @param family A named distribution for the observation model, defaults to gaussian
-#' @param marss A named list containing the following elements for specifying marss models: (states=NULL, obsVariances=NULL, proVariances=NULL, trends=NULL)
+#' @param marss A named list containing the following elements for specifying marss models: (states=NULL, obsVariances=NULL, proVariances=NULL, trends=NULL
+#' @param map_estimation Whether to do maximum a posteriori estimation via [rstan::optimizing()] (defualts to FALSE)
+#' @param hessian Whether to return hessian if map_estimation is TRUE via [rstan::optimizing()]
 #' @param ... Any other arguments passed to [rstan::sampling()].
 #' @return an object of class 'rstan'
 #' @importFrom rstan sampling
@@ -22,13 +24,16 @@ fit_stan <- function(y, x=NA, model_name = NA,
                      Q = 1,
                      mcmc_list = list(n_mcmc = 1000, n_burn = 500, n_chain = 3, n_thin = 1),
                      family="gaussian",
-                     marss = list(states=NULL, obsVariances=NULL, proVariances=NULL, trends=NULL),...) {
+                     marss = list(states=NULL, obsVariances=NULL, proVariances=NULL, trends=NULL),
+                     map_estimation = FALSE,
+                     hessian=FALSE,...) {
 
   dist <- c("gaussian", "binomial", "poisson", "gamma", "lognormal")
   family <- which(dist==family)
 
   # process potential NAs in data
   if(!is.matrix(y)) {
+    N = length(y)
     pos_indx = which(!is.na(y))
     y = y[pos_indx]
     n_pos = length(pos_indx)
@@ -92,27 +97,27 @@ fit_stan <- function(y, x=NA, model_name = NA,
   }
   if(model_name == "ss_rw" & est_drift == FALSE) {
     object <- stanmodels$ss_rw
-    data <- list("y"=y,"N"=length(y),"n_pos"=n_pos,"pos_indx"=pos_indx)
+    data <- list("y"=y,"N"=N,"n_pos"=n_pos,"pos_indx"=pos_indx)
     pars <- c("sigma_process","pred", "sigma_obs")
   }
   if(model_name == "ss_rw" & est_drift == TRUE) {
     object <- stanmodels$ss_rw_drift
-    data <- list("y"=y,"N"=length(y),"n_pos"=n_pos,"pos_indx"=pos_indx)
+    data <- list("y"=y,"N"=N,"n_pos"=n_pos,"pos_indx"=pos_indx)
     pars <- c("sigma_process","pred", "sigma_obs", "mu")
   }
   if(model_name == "ss_ar" & est_drift == FALSE) {
     object <- stanmodels$ss_ar
-    data <- list("y"=y,"N"=length(y),"n_pos"=n_pos,"pos_indx"=pos_indx)
+    data <- list("y"=y,"N"=N,"n_pos"=n_pos,"pos_indx"=pos_indx)
     pars <- c("sigma_process","pred", "sigma_obs", "phi")
   }
   if(model_name == "ss_ar" & est_drift == TRUE) {
     object <- stanmodels$ss_ar_drift
-    data <- list("y"=y,"N"=length(y),"n_pos"=n_pos,"pos_indx"=pos_indx)
+    data <- list("y"=y,"N"=N,"n_pos"=n_pos,"pos_indx"=pos_indx)
     pars <- c("sigma_process","pred", "sigma_obs", "mu", "phi")
   }
   if(model_name == "ss_ar" & est_mean == TRUE) {
     object <- stanmodels$ss_ar_mean
-    data <- list("y"=y,"N"=length(y),"n_pos"=n_pos,"pos_indx"=pos_indx)
+    data <- list("y"=y,"N"=N,"n_pos"=n_pos,"pos_indx"=pos_indx)
     pars <- c("sigma_process","pred", "sigma_obs", "mu", "phi")
   }
   if(model_name == "arma11") {
@@ -127,21 +132,21 @@ fit_stan <- function(y, x=NA, model_name = NA,
       x <- matrix(0, nrow=length(y), ncol=1)
     }
     if(is.matrix(x)==FALSE) x <- matrix(x,ncol=1)
-    data <- list("N"=length(y),"K"=dim(x)[2],"x"=x,"y"=y,"y_int"=round(y), "family"=family,"n_pos"=n_pos,"pos_indx"=pos_indx)
+    data <- list("N"=N,"K"=dim(x)[2],"x"=x,"y"=y,"y_int"=round(y), "family"=family,"n_pos"=n_pos,"pos_indx"=pos_indx)
     pars <- c("beta","sigma_obs","sigma_process","pred","intercept","log_lik")
   }
   if(model_name == "dlm-slope") {
     object = stanmodels$dlm_slope
     # constant estimated intercept, and time varying slopes
     if(is.matrix(x)==FALSE) x <- matrix(x,ncol=1)
-    data <- list("N"=length(y),"K"=dim(x)[2],"x"=x,"y"=y,"y_int"=round(y), "family"=family,"n_pos"=n_pos,"pos_indx"=pos_indx)
+    data <- list("N"=N,"K"=dim(x)[2],"x"=x,"y"=y,"y_int"=round(y), "family"=family,"n_pos"=n_pos,"pos_indx"=pos_indx)
     pars <- c("beta","sigma_obs","sigma_process","pred","log_lik")
   }
   if(model_name == "dlm") {
     object = stanmodels$dlm
     # this is just a time-varying model with time varying intercept and slopes
     if(is.matrix(x)==FALSE) x <- matrix(x,ncol=1)
-    data <- list("N"=length(y),"K"=dim(x)[2],"x"=x,"y"=y,"y_int"=round(y), "family"=family,"n_pos"=n_pos,"pos_indx"=pos_indx)
+    data <- list("N"=N,"K"=dim(x)[2],"x"=x,"y"=y,"y_int"=round(y), "family"=family,"n_pos"=n_pos,"pos_indx"=pos_indx)
     pars <- c("beta","sigma_obs","sigma_process","pred","log_lik")
   }
   if(model_name == "marss") {
@@ -172,7 +177,7 @@ fit_stan <- function(y, x=NA, model_name = NA,
     #   pars = c("pred","log_lik"), chains = mcmc_list$n_chain,
     #   iter = mcmc_list$n_mcmc, thin = mcmc_list$n_thin)
   }
-
+  if(map_estimation==FALSE) {
   out <- rstan::sampling(object=object,
                          data = data,
                          pars = pars,
@@ -181,6 +186,11 @@ fit_stan <- function(y, x=NA, model_name = NA,
                          iter = mcmc_list$n_mcmc,
                          thin = mcmc_list$n_thin,
                          chains = mcmc_list$n_chain,...)
+  } else {
+    out <- rstan::optimizing(object=object,
+                           data = data,
+                           hessian = hessian,...)
+  }
 
   return(out)
 }

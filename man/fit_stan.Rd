@@ -15,6 +15,8 @@ fit_stan(
   mcmc_list = list(n_mcmc = 1000, n_burn = 500, n_chain = 3, n_thin = 1),
   family = "gaussian",
   marss = list(states = NULL, obsVariances = NULL, proVariances = NULL, trends = NULL),
+  map_estimation = FALSE,
+  hessian = FALSE,
   ...
 )
 }
@@ -37,7 +39,11 @@ fit_stan(
 
 \item{family}{A named distribution for the observation model, defaults to gaussian}
 
-\item{marss}{A named list containing the following elements for specifying marss models: (states=NULL, obsVariances=NULL, proVariances=NULL, trends=NULL)}
+\item{marss}{A named list containing the following elements for specifying marss models: (states=NULL, obsVariances=NULL, proVariances=NULL, trends=NULL}
+
+\item{map_estimation}{Whether to do maximum a posteriori estimation via [rstan::optimizing()] (defualts to FALSE)}
+
+\item{hessian}{Whether to return hessian if map_estimation is TRUE via [rstan::optimizing()]}
 
 \item{...}{Any other arguments passed to [rstan::sampling()].}
 }
