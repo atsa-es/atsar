@@ -40,8 +40,8 @@ model {
   }
   if(family==1) {
     for(i in 1:(n_pos)) {
-      y ~ normal(pred, sigma_obs);
-      //y[i] ~ normal(pred[pos_indx[i]], sigma_obs);
+      //y ~ normal(pred, sigma_obs);
+      y[i] ~ normal(pred[pos_indx[i]], sigma_obs);
     }
   }
   if(family==2) {
