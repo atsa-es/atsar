@@ -9,6 +9,7 @@
 #' @param Q The order of the ma model, with minimum value = 1 (default).
 #' @param mcmc_list A list of MCMC control parameters. These include the number of 'iterations' (default = 1000), burn in or warmup (default = 500), chains (default = 3), and thinning (default = 1)
 #' @param family A named distribution for the observation model, defaults to gaussian
+#' @param est_nu Boolean, whether to model process deviations as Student-t or not (default). 
 #' @param marss A named list containing the following elements for specifying marss models: (states=NULL, obsVariances=NULL, proVariances=NULL, trends=NULL
 #' @param map_estimation Whether to do maximum a posteriori estimation via [rstan::optimizing()] (defualts to FALSE)
 #' @param hessian Whether to return hessian if map_estimation is TRUE via [rstan::optimizing()]
@@ -24,6 +25,7 @@ fit_stan <- function(y, x=NA, model_name = NA,
                      Q = 1,
                      mcmc_list = list(n_mcmc = 1000, n_burn = 500, n_chain = 3, n_thin = 1),
                      family="gaussian",
+                     est_nu = FALSE,
                      marss = list(states=NULL, obsVariances=NULL, proVariances=NULL, trends=NULL),
                      map_estimation = FALSE,
                      hessian=FALSE,...) {
@@ -65,66 +67,67 @@ fit_stan <- function(y, x=NA, model_name = NA,
     data <- list("N"=length(y),"K"=dim(x)[2],"x"=x,"y"=y,"y_int"=round(y), "family"=family)
     pars <- c("beta","sigma","pred","phi","sigma_cor","log_lik")
   }
-  if(model_name == "rw" & est_drift == FALSE) {
+  if(model_name == "rw") {
     object <- stanmodels$rw
-    data <- list("y"=y,"N"=length(y))
+    data <- list("y"=y,"N"=length(y), est_drift = ifelse(est_drift==FALSE,0,1),
+                 est_nu = ifelse(est_nu==FALSE,0,1))
     pars <- c("sigma","pred")
+    if(est_drift==TRUE) pars = c(pars,"mu")
+    if(est_nu==TRUE) pars = c(pars,"nu")
   }
-  if(model_name == "rw" & est_drift == TRUE) {
-    object <- stanmodels$rw_drift
-    data <- list("y"=y,"N"=length(y))
-    pars <- c("sigma","pred","mu")
-  }
-  if(model_name == "ar" & est_drift == FALSE) {
+  if(model_name == "ar") {
     object <- stanmodels$ar
-    data <- list("y"=y,"N"=length(y))
+    data <- list("y"=y,"N"=length(y), est_drift = ifelse(est_drift==FALSE,0,1),
+                 est_nu = ifelse(est_nu==FALSE,0,1))
     pars <- c("sigma","pred","phi")
-  }
-  if(model_name == "ar" & est_drift == TRUE) {
-    object <- stanmodels$ar_drift
-    data <- list("y"=y,"N"=length(y))
-    pars <- c("sigma","pred","mu","phi")
+    if(est_drift==TRUE) pars = c(pars,"mu")
+    if(est_nu==TRUE) pars = c(pars,"nu")  
   }
   if(model_name == "ma" & Q == 1) {
     object <- stanmodels$ma1
-    data <- list("y"=y,"N"=length(y))
+    data <- list("y"=y,"N"=length(y),est_nu = ifelse(est_nu==FALSE,0,1))
     pars <- c("sigma","pred","mu","theta")
+    if(est_nu==TRUE) pars = c(pars,"nu")    
   }
   if(model_name == "ma" & Q > 1) {
     object <- stanmodels$ma
-    data <- list("Q"=Q,"y"=y,"N"=length(y))
+    data <- list("Q"=Q,"y"=y,"N"=length(y),est_nu = ifelse(est_nu==FALSE,0,1))
     pars <- c("sigma","pred","mu","theta")
+    if(est_nu==TRUE) pars = c(pars,"nu")    
   }
-  if(model_name == "ss_rw" & est_drift == FALSE) {
+  if(model_name == "ss_rw") {
     object <- stanmodels$ss_rw
-    data <- list("y"=y,"N"=N,"n_pos"=n_pos,"pos_indx"=pos_indx)
+    data <- list("y"=y,"N"=N,"n_pos"=n_pos,"pos_indx"=pos_indx, "y_int"=round(y),
+                 est_drift = ifelse(est_drift==FALSE,0,1),
+                 "family"=family,
+                 est_nu = ifelse(est_nu==FALSE,0,1))
     pars <- c("sigma_process","pred", "sigma_obs")
+    if(est_drift == TRUE) pars <- c(pars, "mu")
+    if(est_nu==TRUE) pars = c(pars,"nu")    
   }
-  if(model_name == "ss_rw" & est_drift == TRUE) {
-    object <- stanmodels$ss_rw_drift
-    data <- list("y"=y,"N"=N,"n_pos"=n_pos,"pos_indx"=pos_indx)
-    pars <- c("sigma_process","pred", "sigma_obs", "mu")
-  }
-  if(model_name == "ss_ar" & est_drift == FALSE) {
+  if(model_name == "ss_ar" & est_mean == FALSE) {
     object <- stanmodels$ss_ar
-    data <- list("y"=y,"N"=N,"n_pos"=n_pos,"pos_indx"=pos_indx)
+    data <- list("y"=y,"N"=N,"n_pos"=n_pos,"pos_indx"=pos_indx, "y_int"=round(y),
+                 est_drift = ifelse(est_drift==FALSE,0,1),
+                 "family"=family,
+                 est_nu = ifelse(est_nu==FALSE,0,1))
     pars <- c("sigma_process","pred", "sigma_obs", "phi")
-  }
-  if(model_name == "ss_ar" & est_drift == TRUE) {
-    object <- stanmodels$ss_ar_drift
-    data <- list("y"=y,"N"=N,"n_pos"=n_pos,"pos_indx"=pos_indx)
-    pars <- c("sigma_process","pred", "sigma_obs", "mu", "phi")
+    if(est_drift == TRUE) pars <- c(pars, "mu")
+    if(est_nu==TRUE) pars = c(pars,"nu")    
   }
   if(model_name == "ss_ar" & est_mean == TRUE) {
     object <- stanmodels$ss_ar_mean
-    data <- list("y"=y,"N"=N,"n_pos"=n_pos,"pos_indx"=pos_indx)
+    data <- list("y"=y,"N"=N,"n_pos"=n_pos,"pos_indx"=pos_indx, "y_int"=round(y),
+                 "family"=family,
+                 est_nu = ifelse(est_nu==FALSE,0,1))
     pars <- c("sigma_process","pred", "sigma_obs", "mu", "phi")
+    if(est_nu==TRUE) pars = c(pars,"nu")
   }
-  if(model_name == "arma11") {
-    object <- stanmodels$arma11
-    data <- list("y"=y,"N"=length(y))
-    pars <- c("sigma", "theta", "mu", "phi")
-  }
+  # if(model_name == "arma11") {
+  #   object <- stanmodels$arma11
+  #   data <- list("y"=y,"N"=length(y))
+  #   pars <- c("sigma", "theta", "mu", "phi")
+  # }
   if(model_name == "dlm-intercept") {
     object <- stanmodels$dlm_int
     # constant slope, and time -varying intercept model
@@ -181,7 +184,7 @@ fit_stan <- function(y, x=NA, model_name = NA,
   out <- rstan::sampling(object=object,
                          data = data,
                          pars = pars,
-                         control = list(adapt_delta=0.99, max_treedepth=20),
+                         control = list(adapt_delta=0.8, max_treedepth=20),
                          warmup = mcmc_list$n_burn,
                          iter = mcmc_list$n_mcmc,
                          thin = mcmc_list$n_thin,

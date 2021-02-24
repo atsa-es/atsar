@@ -8,7 +8,6 @@ using namespace Rcpp;
 
 
 RcppExport SEXP _rcpp_module_boot_stan_fit4ar_mod();
-RcppExport SEXP _rcpp_module_boot_stan_fit4ar_drift_mod();
 RcppExport SEXP _rcpp_module_boot_stan_fit4dlm_mod();
 RcppExport SEXP _rcpp_module_boot_stan_fit4dlm_int_mod();
 RcppExport SEXP _rcpp_module_boot_stan_fit4dlm_slope_mod();
@@ -18,16 +17,12 @@ RcppExport SEXP _rcpp_module_boot_stan_fit4marss_mod();
 RcppExport SEXP _rcpp_module_boot_stan_fit4regression_mod();
 RcppExport SEXP _rcpp_module_boot_stan_fit4regression_cor_mod();
 RcppExport SEXP _rcpp_module_boot_stan_fit4rw_mod();
-RcppExport SEXP _rcpp_module_boot_stan_fit4rw_drift_mod();
 RcppExport SEXP _rcpp_module_boot_stan_fit4ss_ar_mod();
-RcppExport SEXP _rcpp_module_boot_stan_fit4ss_ar_drift_mod();
 RcppExport SEXP _rcpp_module_boot_stan_fit4ss_ar_mean_mod();
 RcppExport SEXP _rcpp_module_boot_stan_fit4ss_rw_mod();
-RcppExport SEXP _rcpp_module_boot_stan_fit4ss_rw_drift_mod();
 
 static const R_CallMethodDef CallEntries[] = {
     {"_rcpp_module_boot_stan_fit4ar_mod", (DL_FUNC) &_rcpp_module_boot_stan_fit4ar_mod, 0},
-    {"_rcpp_module_boot_stan_fit4ar_drift_mod", (DL_FUNC) &_rcpp_module_boot_stan_fit4ar_drift_mod, 0},
     {"_rcpp_module_boot_stan_fit4dlm_mod", (DL_FUNC) &_rcpp_module_boot_stan_fit4dlm_mod, 0},
     {"_rcpp_module_boot_stan_fit4dlm_int_mod", (DL_FUNC) &_rcpp_module_boot_stan_fit4dlm_int_mod, 0},
     {"_rcpp_module_boot_stan_fit4dlm_slope_mod", (DL_FUNC) &_rcpp_module_boot_stan_fit4dlm_slope_mod, 0},
@@ -37,12 +32,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_rcpp_module_boot_stan_fit4regression_mod", (DL_FUNC) &_rcpp_module_boot_stan_fit4regression_mod, 0},
     {"_rcpp_module_boot_stan_fit4regression_cor_mod", (DL_FUNC) &_rcpp_module_boot_stan_fit4regression_cor_mod, 0},
     {"_rcpp_module_boot_stan_fit4rw_mod", (DL_FUNC) &_rcpp_module_boot_stan_fit4rw_mod, 0},
-    {"_rcpp_module_boot_stan_fit4rw_drift_mod", (DL_FUNC) &_rcpp_module_boot_stan_fit4rw_drift_mod, 0},
     {"_rcpp_module_boot_stan_fit4ss_ar_mod", (DL_FUNC) &_rcpp_module_boot_stan_fit4ss_ar_mod, 0},
-    {"_rcpp_module_boot_stan_fit4ss_ar_drift_mod", (DL_FUNC) &_rcpp_module_boot_stan_fit4ss_ar_drift_mod, 0},
     {"_rcpp_module_boot_stan_fit4ss_ar_mean_mod", (DL_FUNC) &_rcpp_module_boot_stan_fit4ss_ar_mean_mod, 0},
     {"_rcpp_module_boot_stan_fit4ss_rw_mod", (DL_FUNC) &_rcpp_module_boot_stan_fit4ss_rw_mod, 0},
-    {"_rcpp_module_boot_stan_fit4ss_rw_drift_mod", (DL_FUNC) &_rcpp_module_boot_stan_fit4ss_rw_drift_mod, 0},
     {NULL, NULL, 0}
 };
 

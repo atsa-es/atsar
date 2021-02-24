@@ -14,6 +14,7 @@ fit_stan(
   Q = 1,
   mcmc_list = list(n_mcmc = 1000, n_burn = 500, n_chain = 3, n_thin = 1),
   family = "gaussian",
+  est_nu = FALSE,
   marss = list(states = NULL, obsVariances = NULL, proVariances = NULL, trends = NULL),
   map_estimation = FALSE,
   hessian = FALSE,
@@ -38,6 +39,8 @@ fit_stan(
 \item{mcmc_list}{A list of MCMC control parameters. These include the number of 'iterations' (default = 1000), burn in or warmup (default = 500), chains (default = 3), and thinning (default = 1)}
 
 \item{family}{A named distribution for the observation model, defaults to gaussian}
+
+\item{est_nu}{Boolean, whether to model process deviations as Student-t or not (default).}
 
 \item{marss}{A named list containing the following elements for specifying marss models: (states=NULL, obsVariances=NULL, proVariances=NULL, trends=NULL}
 

@@ -7,6 +7,7 @@ data {
   matrix[N, K] x; // matrix of covariates
   int y_int[n_pos];
   int family; // 1 = normal, 2 = binomial, 3 = poisson, 4 = gamma, 5 = lognormal
+  int<lower=0> est_nu;  
 }
 parameters {
   real x0;
@@ -14,6 +15,7 @@ parameters {
   vector[N-1] pro_dev;
   real<lower=0> sigma_process;
   real<lower=0> sigma_obs;
+  real<lower=2> nu[est_nu];  
 }
 transformed parameters {
   vector[N] pred;
@@ -28,7 +30,14 @@ model {
   x0 ~ normal(0,10);
   sigma_process ~ student_t(3,0,2);
   sigma_obs ~ student_t(3,0,2);
-  pro_dev ~ std_normal();//normal(0, sigma_process);
+  if(est_nu==1) {
+    nu ~ student_t(3,2,2);
+  }  
+  if(est_nu==0) {
+    pro_dev ~ std_normal();//normal(0, sigma_process);
+  } else {
+    pro_dev ~ student_t(nu, 0, 1);
+  }
   if(family==1) {
     for(i in 1:(n_pos)) {
       y[i] ~ normal(pred[pos_indx[i]], sigma_obs);
