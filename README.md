@@ -73,7 +73,7 @@ s = cumsum(rnorm(50))
 plot(s)
 ```
 
-![](README-figs/plot-1.png)
+![](README-figs/plot-1.png)<!-- -->
 
 Fit several models to this data:
 
@@ -93,6 +93,10 @@ arma1_model = fit_stan(y = s, model_name = "arma11")
 # univariate ss model -- without drift but mean reversion estimated
 ss_model = fit_stan(y = s, model_name = "ss_ar", est_drift=FALSE)
 ```
+
+To see the Stan mode code behind each of these, look in the `inst/stan`
+folder on the GitHub repository. Note that `fit_stan.R` does some data
+preparation to deal with Stan not accepting NAs in the data.
 
 ### DOCUMENTATION
 

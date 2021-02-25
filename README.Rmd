@@ -1,7 +1,7 @@
 ---
 output:
   md_document:
-    variant: markdown_github
+    variant: gfm
 ---
 
 ```{r, echo = FALSE}
@@ -88,6 +88,8 @@ arma1_model = fit_stan(y = s, model_name = "arma11")
 # univariate ss model -- without drift but mean reversion estimated
 ss_model = fit_stan(y = s, model_name = "ss_ar", est_drift=FALSE)
 ```
+
+To see the Stan mode code behind each of these, look in the `inst/stan` folder on the GitHub repository. Note that `fit_stan.R` does some data preparation to deal with Stan not accepting NAs in the data.
 
 ### DOCUMENTATION {#documentation}
 
