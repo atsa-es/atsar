@@ -35,6 +35,9 @@
 <li>
 <a href="#license">License</a>
 </li>
+<li>
+<a href="https://github.com/nwfsc-timeseries/atsar">GitHub</a>
+</li>
 </ul>
 
 The atsar R package implements Bayesian time series models using Stan,

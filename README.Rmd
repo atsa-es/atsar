@@ -41,6 +41,7 @@ knitr::opts_chunk$set(
   <li><a href="#example">Example</a></li>
   <li><a href="#citation">Citation</a></li>
   <li><a href="#license">License</a></li>
+  <li><a href="https://github.com/nwfsc-timeseries/atsar">GitHub</a></li>
 </ul>
 
 The atsar R package implements Bayesian time series models using Stan, primarily for illustrative purposes and teaching (University of Washington's Fish 507, Winter quarters). The Stan webpage, and appropriate citation guidelines are [here](http://mc-stan.org/). 
