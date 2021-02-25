@@ -30,7 +30,7 @@
 <a href="#example">Example</a>
 </li>
 <li>
-<a href="#cite">Citation</a>
+<a href="#citation">Citation</a>
 </li>
 <li>
 <a href="#license">License</a>
@@ -50,10 +50,6 @@ You can install the development version of the package with:
 # install.packages("devtools")
 devtools::install_github("nwfsc-timeseries/atsar")
 ```
-
-Windows Users: If installation fails because of a warning that a package was built under a later R version than you have on your computer, use
-
-Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS=TRUE)
 
 ### EXAMPLE
 
