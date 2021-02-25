@@ -1,7 +1,7 @@
 Package: atsar
 Type: Package
 Title: Stan Routines For Univariate And Multivariate Time Series
-Version: 0.1.5
+Version: 0.1.6
 Authors@R: c(
     person(c("Eric", "J."), "Ward", role = c("aut", "cre"), 
       email = "eric.ward@noaa.gov"),
