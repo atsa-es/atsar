@@ -115,7 +115,7 @@ ecological and fisheries data with Stan.
 
 ### LICENSE
 
-MARSS was developed by US federal government employees as part of their
+atsar was developed by US federal government employees as part of their
 official duties. As such, it is not subject to copyright protection and
 is considered “public domain” (see 17 USC § 105). Public domain software
 can be used by anyone for any purpose, and cannot be released under a

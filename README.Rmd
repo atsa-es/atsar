@@ -102,6 +102,6 @@ Ward, E.J., M.D. Scheuerell, and E.E. Holmes. 2018. 'atsar': Applied Time Series
 
 ### LICENSE {#license}
 
-MARSS was developed by US federal government employees as part of their official duties. As such, it is not subject to copyright protection and is considered “public domain” (see 17 USC § 105). Public domain software can be used by anyone for any purpose, and cannot be released under a copyright license.
+atsar was developed by US federal government employees as part of their official duties. As such, it is not subject to copyright protection and is considered “public domain” (see 17 USC § 105). Public domain software can be used by anyone for any purpose, and cannot be released under a copyright license.
 
 
