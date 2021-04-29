@@ -19,25 +19,45 @@
     padding:5px;
 }
 </style>
+
 <ul class="nav">
+
 <li>
+
 <a href="#install">Install</a>
+
 </li>
+
 <li>
+
 <a href="#documentation">Documentation</a>
+
 </li>
+
 <li>
+
 <a href="#example">Example</a>
+
 </li>
+
 <li>
+
 <a href="#citation">Citation</a>
+
 </li>
+
 <li>
+
 <a href="#license">License</a>
+
 </li>
+
 <li>
+
 <a href="https://github.com/nwfsc-timeseries/atsar">GitHub</a>
+
 </li>
+
 </ul>
 
 The atsar R package implements Bayesian time series models using Stan,
@@ -103,13 +123,13 @@ preparation to deal with Stan not accepting NAs in the data.
 
 ### DOCUMENTATION
 
--   [ATSA lab book](https://nwfsc-timeseries.github.io/atsa-labs/) -
+  - [ATSA lab book](https://nwfsc-timeseries.github.io/atsa-labs/) -
     Many applications are covered in our Applied Time Series Analysis
     book developed from the labs in our course.
--   [ATSA course website](https://nwfsc-timeseries.github.io/atsa/) - We
+  - [ATSA course website](https://nwfsc-timeseries.github.io/atsa/) - We
     have lectures and all material from our course on our course
     website.
--   Additional information can be found on the NWFSC time series page
+  - Additional information can be found on the NWFSC time series page
     which includes several additional books and packages, [NWFSC time
     series page](https://nwfsc-timeseries.github.io/)
 
@@ -120,10 +140,18 @@ Time Series Analysis in R: an introduction to time series analysis for
 ecological and fisheries data with Stan.
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1158021.svg)](https://doi.org/10.5281/zenodo.1158021)
 
-### LICENSE
+### NOAA Disclaimer
 
-atsar was developed by US federal government employees as part of their
-official duties. As such, it is not subject to copyright protection and
-is considered “public domain” (see 17 USC § 105). Public domain software
-can be used by anyone for any purpose, and cannot be released under a
-copyright license.
+This repository is a scientific product and is not official
+communication of the National Oceanic and Atmospheric Administration, or
+the United States Department of Commerce. All NOAA GitHub project code
+is provided on an ‘as is’ basis and the user assumes responsibility for
+its use. Any claims against the Department of Commerce or Department of
+Commerce bureaus stemming from the use of this GitHub project will be
+governed by all applicable Federal law. Any reference to specific
+commercial products, processes, or services by service mark, trademark,
+manufacturer, or otherwise, does not constitute or imply their
+endorsement, recommendation or favoring by the Department of Commerce.
+The Department of Commerce seal and logo, or the seal and logo of a DOC
+bureau, shall not be used in any manner to imply endorsement of any
+commercial product or activity by DOC or the United States Government.

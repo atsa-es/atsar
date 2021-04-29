@@ -1,0 +1,8 @@
+pandoc: 2.7.3
+pkgdown: 1.6.1
+pkgdown_sha: ~
+articles:
+  dlm: dlm.html
+  fit_stan: fit_stan.html
+last_built: 2021-04-29T17:10Z
+
