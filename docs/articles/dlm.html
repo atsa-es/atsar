@@ -11,7 +11,8 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Dynamic linear models in package atsar">
+<script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
+<meta property="og:title" content="Dynamic linear models in package atsar">
 <meta property="og:description" content="atsar">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -85,7 +86,7 @@
       <h1 data-toc-skip>Dynamic linear models in package atsar</h1>
                         <h4 class="author">Eric Ward</h4>
             
-            <h4 class="date">2021-04-29</h4>
+            <h4 class="date">2021-06-17</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/nwfsc-timeseries/atsar/blob/master/vignettes/dlm.Rmd"><code>vignettes/dlm.Rmd</code></a></small>
       <div class="hidden name"><code>dlm.Rmd</code></div>
@@ -136,7 +137,7 @@
 <a href="#fitting-non-normal-errors" class="anchor"></a>Fitting non-normal errors</h2>
 <p>We’ve implemented several non-normal observation model distributions in <code>stan_fit</code>, including “binomial”, “poisson”, “gamma”, etc. As an example of how to use these in a DLM setting, we’ll fit a DLM with time-varying mean and Poisson response to a time series of ecoli data, collected weekly. The data are in the <code>tscount</code> package.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">y</span> <span class="op">=</span> <span class="fu">tscount</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/tscount/man/ecoli.html">ecoli</a></span></code></pre></div>
+<code class="sourceCode R"><span class="va">y</span> <span class="op">=</span> <span class="fu">tscount</span><span class="fu">::</span><span class="va">ecoli</span></code></pre></div>
 <p>We could fit a Poisson GLM in <code>fit_stan</code> with the following,</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod</span> <span class="op">=</span> <span class="fu"><a href="../reference/fit_stan.html">fit_stan</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">y</span><span class="op">$</span><span class="va">cases</span>, 
