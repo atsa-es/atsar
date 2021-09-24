@@ -62,7 +62,7 @@
 
 The atsar R package implements Bayesian time series models using Stan,
 primarily for illustrative purposes and teaching (University of
-Washington’s Fish 507, Winter quarters). The Stan webpage, and
+Washington’s Fish 550, Winter quarters). The Stan webpage, and
 appropriate citation guidelines are [here](http://mc-stan.org/).
 
 ### INSTALL
@@ -71,7 +71,7 @@ You can install the development version of the package with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("nwfsc-timeseries/atsar")
+devtools::install_github("atsa-es/atsar")
 ```
 
 ### EXAMPLE
@@ -123,15 +123,15 @@ preparation to deal with Stan not accepting NAs in the data.
 
 ### DOCUMENTATION
 
-  - [ATSA lab book](https://nwfsc-timeseries.github.io/atsa-labs/) -
+  - [ATSA lab book](https://atsa-es.github.io/atsa-labs/) -
     Many applications are covered in our Applied Time Series Analysis
     book developed from the labs in our course.
-  - [ATSA course website](https://nwfsc-timeseries.github.io/atsa/) - We
+  - [ATSA course website](https://atsa-es.github.io/atsa/) - We
     have lectures and all material from our course on our course
     website.
   - Additional information can be found on the NWFSC time series page
     which includes several additional books and packages, [NWFSC time
-    series page](https://nwfsc-timeseries.github.io/)
+    series page](https://atsa-es.github.io/)
 
 ### CITATION
 
