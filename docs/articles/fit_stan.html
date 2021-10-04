@@ -65,7 +65,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/nwfsc-timeseries/atsar/">
+  <a href="https://github.com/atsa-es/atsar/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -80,15 +80,15 @@
 
       
 
-      </header><script src="fit_stan_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="fit_stan_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Fitting time series models in package atsar</h1>
                         <h4 class="author">Eric Ward</h4>
             
-            <h4 class="date">2021-06-17</h4>
+            <h4 class="date">2021-10-04</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/nwfsc-timeseries/atsar/blob/master/vignettes/fit_stan.Rmd"><code>vignettes/fit_stan.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/atsa-es/atsar/blob/master/vignettes/fit_stan.Rmd"><code>vignettes/fit_stan.Rmd</code></a></small>
       <div class="hidden name"><code>fit_stan.Rmd</code></div>
 
     </div>
@@ -103,7 +103,7 @@
 <a href="#installing-packages" class="anchor"></a>Installing packages</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mc-stan.org/rstan">rstan</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/nwfsc-timeseries/atsar">atsar</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://atsa-es.github.io/atsar/">atsar</a></span><span class="op">)</span>
 <span class="co"># for optimizing stan on your machine,</span>
 <span class="co">#rstan_options(auto_write = TRUE)</span>
 <span class="co">#options(mc.cores = parallel::detectCores())</span>
@@ -121,7 +121,6 @@
 <div id="linear-regression" class="section level2">
 <h2 class="hasAnchor">
 <a href="#linear-regression" class="anchor"></a>1. Linear regression</h2>
-
 <p>We’ll start with the simplest time series model possible: linear regression with only an intercept, so that the predicted values of all observations are the same. There are several ways we can write this equation. First, the predicted values can be written as <span class="math inline">\(E[{Y}_{t}] = u\)</span>. Assuming that the residuals are normally distributed, the model linking our predictions to observed data is written as <span class="math display">\[Y = u + e_{t}, e_{t} \sim Normal(0,\sigma)\]</span></p>
 <p>An equivalent way to think about this model is that instead of the residuals as normally distributed with mean zero, we can think of the data <span class="math inline">\(Y\)</span> as being normally distributed with a mean of the intercept, and the same residual standard deviation: <span class="math display">\[Y \sim Normal(E[Y_{t}],\sigma)\]</span> Remember that in linear regression models, the residual error is interpreted as independent and identically distributed observation error.</p>
 <p>To run this model using our package, we’ll need to specify the response and predictor variables. The covariate matrix with an intercept only is a matrix of 1s. To double check, you could always look at</p>
@@ -149,7 +148,7 @@
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">pars</span><span class="op">$</span><span class="va">beta</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.025</span>,<span class="fl">0.5</span>,<span class="fl">0.975</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>##       2.5%        50%      97.5% 
-## -3.4344501  0.4642215  4.1812445</code></pre>
+## -3.6529938  0.2426497  4.5384432</code></pre>
 <p>One of the other useful things we can do is look at the predicted values of our model and overlay the data. The predicted values are <em>pars$pred</em>.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">pars</span><span class="op">$</span><span class="va">pred</span>, <span class="fl">2</span>, <span class="va">mean</span><span class="op">)</span>, main<span class="op">=</span><span class="st">"Predicted values"</span>, lwd<span class="op">=</span><span class="fl">2</span>, 

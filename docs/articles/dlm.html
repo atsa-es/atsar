@@ -65,7 +65,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/nwfsc-timeseries/atsar/">
+  <a href="https://github.com/atsa-es/atsar/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -80,15 +80,15 @@
 
       
 
-      </header><script src="dlm_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="dlm_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Dynamic linear models in package atsar</h1>
                         <h4 class="author">Eric Ward</h4>
             
-            <h4 class="date">2021-06-17</h4>
+            <h4 class="date">2021-10-04</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/nwfsc-timeseries/atsar/blob/master/vignettes/dlm.Rmd"><code>vignettes/dlm.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/atsa-es/atsar/blob/master/vignettes/dlm.Rmd"><code>vignettes/dlm.Rmd</code></a></small>
       <div class="hidden name"><code>dlm.Rmd</code></div>
 
     </div>
@@ -100,7 +100,7 @@
 <a href="#installation" class="anchor"></a>Installation</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mc-stan.org/rstan">rstan</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/nwfsc-timeseries/atsar">atsar</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://atsa-es.github.io/atsar/">atsar</a></span><span class="op">)</span>
 
 <span class="co"># for optimizing stan on your machine,</span>
 <span class="co">#rstan_options(auto_write = TRUE)</span>
@@ -153,7 +153,6 @@
   family<span class="op">=</span><span class="st">"poisson"</span>,
   mcmc_list<span class="op">=</span><span class="va">mcmc_list</span><span class="op">)</span></code></pre></div>
 <p>This more flexible model captures the data much better. Note: the credible intervals are on the mean, not new data.</p>
-
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pars</span> <span class="op">=</span> <span class="fu"><a href="https://mc-stan.org/rstan/reference/stanfit-method-extract.html">extract</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">pars</span><span class="op">$</span><span class="va">intercept</span><span class="op">)</span>, <span class="fl">2</span>, <span class="va">mean</span><span class="op">)</span>, type<span class="op">=</span><span class="st">"l"</span>, lwd<span class="op">=</span><span class="fl">3</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">100</span><span class="op">)</span>, ylab<span class="op">=</span><span class="st">"E coli"</span>, xlab<span class="op">=</span><span class="st">""</span><span class="op">)</span>
