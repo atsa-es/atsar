@@ -1,5 +1,5 @@
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/nwfsc-timeseries/atsar/workflows/R-CMD-check/badge.svg)](https://github.com/nwfsc-timeseries/atsar/actions)
+[![R-CMD-check](https://github.com/atsa-es/atsar/workflows/R-CMD-check/badge.svg)](https://github.com/atsa-es/atsar/actions)
 <!-- badges: end -->
 
 <style>
@@ -54,7 +54,7 @@
 
 <li>
 
-<a href="https://github.com/nwfsc-timeseries/atsar">GitHub</a>
+<a href="https://github.com/atsa-es/atsar">GitHub</a>
 
 </li>
 
@@ -129,9 +129,8 @@ preparation to deal with Stan not accepting NAs in the data.
   - [ATSA course website](https://atsa-es.github.io/atsa/) - We
     have lectures and all material from our course on our course
     website.
-  - Additional information can be found on the NWFSC time series page
-    which includes several additional books and packages, [NWFSC time
-    series page](https://atsa-es.github.io/)
+  - Additional information can be found on the ATSA GitHub org
+    which includes several additional books and packages, [atsa-es](https://atsa-es.github.io/)
 
 ### CITATION
 
