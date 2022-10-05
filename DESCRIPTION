@@ -38,7 +38,7 @@ Encoding: UTF-8
 LazyData: true
 URL: https://atsa-es.github.io/atsar/
 BugReports: https://github.com/atsa-es/atsar/issues
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.1
 SystemRequirements: GNU make
 Biarch: true
 VignetteBuilder: knitr
