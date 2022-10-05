@@ -7,7 +7,7 @@ using namespace Rcpp ;
 RCPP_MODULE(stan_fit4dlm_slope_mod) {
 
 
-    class_<rstan::stan_fit<stan_model, boost::random::ecuyer1988> >("model_dlm_slope")
+    class_<rstan::stan_fit<stan_model, boost::random::ecuyer1988> >("rstantools_model_dlm_slope")
 
     .constructor<SEXP,SEXP,SEXP>()
 
