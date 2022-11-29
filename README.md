@@ -63,7 +63,7 @@
 The atsar R package implements Bayesian time series models using Stan,
 primarily for illustrative purposes and teaching (University of
 Washington’s Fish 550, Winter quarters). The Stan webpage, and
-appropriate citation guidelines are [here](http://mc-stan.org/).
+appropriate citation guidelines, are [here](http://mc-stan.org/).
 
 ### INSTALL
 
