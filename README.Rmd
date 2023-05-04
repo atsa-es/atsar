@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 ```
 
   <!-- badges: start -->
-  [![R-CMD-check](https://github.com/nwfsc-timeseries/atsar/workflows/R-CMD-check/badge.svg)](https://github.com/nwfsc-timeseries/atsar/actions)
+[![atsar status badge](https://atsa-es.r-universe.dev/badges/atsar)](https://atsa-es.r-universe.dev)[![R-CMD-check](https://github.com/nwfsc-timeseries/atsar/workflows/R-CMD-check/badge.svg)](https://github.com/nwfsc-timeseries/atsar/actions)
   <!-- badges: end -->
   
 <style>
@@ -49,11 +49,16 @@ The atsar R package implements Bayesian time series models using Stan, primarily
 
 ### INSTALL {#install}
 
-You can install the development version of the package with:
+# Install atsar from the atsa-es r-universe repository (binaries for Windows and Mac-Intel)
+```
+install.packages('atsar', repos = c('https://atsa-es.r-universe.dev', 'https://cloud.r-project.org'))
+```
+
+You can build the development version of the package from the source code with:
 
 ```{r, eval=FALSE}
-# install.packages("devtools")
-devtools::install_github("nwfsc-timeseries/atsar")
+# install.packages("remotes")
+remotes::install_github("nwfsc-timeseries/atsar")
 ```
 
 ### EXAMPLE {#example}
