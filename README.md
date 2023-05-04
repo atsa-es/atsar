@@ -1,5 +1,5 @@
-<!-- badges: start -->
-[![R-CMD-check](https://github.com/atsa-es/atsar/workflows/R-CMD-check/badge.svg)](https://github.com/atsa-es/atsar/actions)
+<!-- badges: start --> [![atsar status
+badge](https://atsa-es.r-universe.dev/badges/atsar)](https://atsa-es.r-universe.dev)[![R-CMD-check](https://github.com/nwfsc-timeseries/atsar/workflows/R-CMD-check/badge.svg)](https://github.com/nwfsc-timeseries/atsar/actions)
 <!-- badges: end -->
 
 <style>
@@ -19,59 +19,44 @@
     padding:5px;
 }
 </style>
-
 <ul class="nav">
-
 <li>
-
 <a href="#install">Install</a>
-
 </li>
-
 <li>
-
 <a href="#documentation">Documentation</a>
-
 </li>
-
 <li>
-
 <a href="#example">Example</a>
-
 </li>
-
 <li>
-
 <a href="#citation">Citation</a>
-
 </li>
-
 <li>
-
 <a href="#license">License</a>
-
 </li>
-
 <li>
-
-<a href="https://github.com/atsa-es/atsar">GitHub</a>
-
+<a href="https://github.com/nwfsc-timeseries/atsar">GitHub</a>
 </li>
-
 </ul>
 
 The atsar R package implements Bayesian time series models using Stan,
 primarily for illustrative purposes and teaching (University of
-Washington’s Fish 550, Winter quarters). The Stan webpage, and
-appropriate citation guidelines, are [here](http://mc-stan.org/).
+Washington’s Fish 507, Winter quarters). The Stan webpage, and
+appropriate citation guidelines are [here](http://mc-stan.org/).
 
 ### INSTALL
 
-You can install the development version of the package with:
+# Install atsar from the atsa-es r-universe repository (binaries for Windows and Mac-Intel)
+
+    install.packages('atsar', repos = c('https://atsa-es.r-universe.dev', 'https://cloud.r-project.org'))
+
+You can build the development version of the package from the source
+here. Note you need to use this if you have a M1/M2 Mac.
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("atsa-es/atsar")
+# install.packages("remotes")
+remotes::install_github("nwfsc-timeseries/atsar")
 ```
 
 ### EXAMPLE
@@ -82,7 +67,7 @@ Simulate data:
 library(rstan)
 #> Loading required package: StanHeaders
 #> Loading required package: ggplot2
-#> rstan (Version 2.21.2, GitRev: 2e1f913d3ca3)
+#> rstan (Version 2.21.8, GitRev: 2e1f913d3ca3)
 #> For execution on a local, multicore CPU with excess RAM we recommend calling
 #> options(mc.cores = parallel::detectCores()).
 #> To avoid recompilation of unchanged Stan programs, we recommend calling
@@ -123,14 +108,14 @@ preparation to deal with Stan not accepting NAs in the data.
 
 ### DOCUMENTATION
 
-  - [ATSA lab book](https://atsa-es.github.io/atsa-labs/) -
-    Many applications are covered in our Applied Time Series Analysis
-    book developed from the labs in our course.
-  - [ATSA course website](https://atsa-es.github.io/atsa/) - We
-    have lectures and all material from our course on our course
-    website.
-  - Additional information can be found on the ATSA GitHub org
-    which includes several additional books and packages, [atsa-es](https://atsa-es.github.io/)
+- [ATSA lab book](https://nwfsc-timeseries.github.io/atsa-labs/) - Many
+  applications are covered in our Applied Time Series Analysis book
+  developed from the labs in our course.
+- [ATSA course website](https://nwfsc-timeseries.github.io/atsa/) - We
+  have lectures and all material from our course on our course website.
+- Additional information can be found on the NWFSC time series page
+  which includes several additional books and packages, [NWFSC time
+  series page](https://nwfsc-timeseries.github.io/)
 
 ### CITATION
 
@@ -154,3 +139,9 @@ endorsement, recommendation or favoring by the Department of Commerce.
 The Department of Commerce seal and logo, or the seal and logo of a DOC
 bureau, shall not be used in any manner to imply endorsement of any
 commercial product or activity by DOC or the United States Government.
+
+<img src="https://raw.githubusercontent.com/nmfs-general-modeling-tools/nmfspalette/main/man/figures/noaa-fisheries-rgb-2line-horizontal-small.png" height="75" alt="NOAA Fisheries">
+
+[U.S. Department of Commerce](https://www.commerce.gov/) \| [National
+Oceanographic and Atmospheric Administration](https://www.noaa.gov) \|
+[NOAA Fisheries](https://www.fisheries.noaa.gov/)

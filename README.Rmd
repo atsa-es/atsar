@@ -54,7 +54,7 @@ The atsar R package implements Bayesian time series models using Stan, primarily
 install.packages('atsar', repos = c('https://atsa-es.r-universe.dev', 'https://cloud.r-project.org'))
 ```
 
-You can build the development version of the package from the source code with:
+You can build the development version of the package from the source here. Note you need to use this if you have a M1/M2 Mac.
 
 ```{r, eval=FALSE}
 # install.packages("remotes")
