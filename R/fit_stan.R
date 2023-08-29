@@ -174,7 +174,9 @@ fit_stan <- function(y, x = NA, model_name = NA,
     if(length(marss$trends) < max(marss$states)) stop("Error: vector of trends is fewer than the number of states")
     if(length(marss$trends) > max(marss$states)) stop("Error: vector of trends is larger than the number of states")
     if (marss$est_trend == FALSE) est_trend = FALSE
+    if (marss$est_trend == TRUE) est_trend = TRUE
     if (marss$est_B == FALSE) est_B = FALSE
+    if (marss$est_B == TRUE) est_B = TRUE
     proVariances <- c(marss$proVariances, 0) # to keep types in stan constant
     trends <- c(marss$trends, 0) # to keep types in stan constant
     N <- ncol(y)
@@ -185,7 +187,7 @@ fit_stan <- function(y, x = NA, model_name = NA,
     y <- y[which(!is.na(y))]
     
     data = list("N"=N,"M"=M, "y"=y,
-                     "states"=states, "S" = max(marss$states), "obsVariances"=marss$obsVariances,
+                     "states"=marss$states, "S" = max(marss$states), "obsVariances"=marss$obsVariances,
                      "n_obsvar" = max(marss$obsVariances), "proVariances" = proVariances,
                      "n_provar" = max(proVariances),
                      "trends"=trends, "n_trends" = max(trends),
@@ -206,7 +208,7 @@ fit_stan <- function(y, x = NA, model_name = NA,
       object = object,
       data = data,
       pars = pars,
-      control = list(adapt_delta = 0.8, max_treedepth = 20),
+      control = list(adapt_delta = 0.95, max_treedepth = 13),
       warmup = mcmc_list$n_burn,
       iter = mcmc_list$n_mcmc,
       thin = mcmc_list$n_thin,
