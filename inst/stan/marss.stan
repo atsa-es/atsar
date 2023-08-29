@@ -74,7 +74,7 @@ transformed parameters {
   }
 }
 model {
-  x0 ~ normal(0,10);
+  //x0 ~ normal(0,10);
   for(i in 1:n_obsvar) {
     sigma_obs[i] ~ student_t(3,0,2);
   }

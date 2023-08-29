@@ -647,8 +647,6 @@ public:
                 }
             }
             // model body
-            current_statement_begin__ = 77;
-            lp_accum__.add(normal_log<propto__>(x0, 0, 10));
             current_statement_begin__ = 78;
             for (int i = 1; i <= n_obsvar; ++i) {
                 current_statement_begin__ = 79;
