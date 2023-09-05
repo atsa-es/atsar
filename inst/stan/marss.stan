@@ -14,8 +14,6 @@ data {
   int<lower=0> row_indx_pos[n_pos];
   int<lower=0> est_trend; 
   int<lower=0> est_B;
-  int<lower=0> n_A;
-  int<lower=0> est_A[n_A+1];
   vector[n_pos] y; // data
   int y_int[n_pos];
   int family; // 1 = normal, 2 = binomial, 3 = poisson, 4 = gamma, 5 = lognormal
@@ -25,7 +23,6 @@ parameters {
   vector[S] pro_dev[N-1];
   vector[n_trends * est_trend] U;
   matrix[S*est_B,S*est_B] B;
-  vector[n_A] A; // offsets
   real<lower=0> sigma_process[S];
   real<lower=0> sigma_obs[n_obsvar];
 }
@@ -35,10 +32,6 @@ transformed parameters {
   //matrix[N, S] x;
   matrix[S,S] Bmat;
   vector[S] Uvec;
-  vector[M] Avec;
-  
-  for(i in 1:M) Avec[i] = 0;
-  for(i in 1:n_A) Avec[est_A[i]] = A[i];
   
   for(i in 1:S) {
     if(est_trend) {
@@ -65,27 +58,32 @@ transformed parameters {
       x[t,] = x[t,] + Uvec;
     }
   }
-
+  // random walk in states
+  // for(s in 1:S) {
+  //  x[1,s] = x0[s]; // initial state, vague prior below
+  //  for(t in 2:N) {
+  //   x[t,s] = x[t-1,s] + pro_dev[t-1,s];
+  //   if(est_trend == 1) x[t,s] = x[t,s] + U[trends[s]];
+  //  }
+  // }
   // map predicted states to time series
   for(m in 1:M) {
     for(t in 1:N) {
-      pred[t,m] = x[t,states[m]] + Avec[m];
+      pred[t,m] = x[t,states[m]];
     }
   }
 }
 model {
-  x0 ~ normal(0, 3); // initial states
-  A ~ normal(0, 3); // A offsets
-  
+  //x0 ~ normal(0,10);
   for(i in 1:n_obsvar) {
-    sigma_obs[i] ~ student_t(3,0,1); // observation var sigma
+    sigma_obs[i] ~ student_t(3,0,2);
   }
   for(s in 1:n_provar) {
-    sigma_process[s] ~ student_t(3,0,1); // process var sigma
+    sigma_process[s] ~ student_t(3,0,2); // process var
   }
   if(est_trend==1){
     for(i in 1:n_trends) {
-      U[i] ~ normal(0,1); // optional trends
+      U[i] ~ normal(0,1);
     }
   }
   for(s in 1:S) {

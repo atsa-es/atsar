@@ -186,15 +186,6 @@ fit_stan <- function(y, x = NA, model_name = NA,
     n_pos <- length(row_indx_pos)
     y <- y[which(!is.na(y))]
     
-    est_A <- rep(1, M)
-    for(i in 1:max(marss$states)) {
-      indx <- which(marss$states==i)
-      est_A[indx[1]] <- 0
-    }
-    est_A <- which(est_A > 0)
-    est_A <- c(est_A, 0)
-    n_A <- length(est_A) - 1
-    
     data = list("N"=N,"M"=M, "y"=y,
                      "states"=marss$states, "S" = max(marss$states), "obsVariances"=marss$obsVariances,
                      "n_obsvar" = max(marss$obsVariances), "proVariances" = proVariances,
@@ -203,8 +194,6 @@ fit_stan <- function(y, x = NA, model_name = NA,
                      "n_pos" = n_pos,
                      "col_indx_pos" = col_indx_pos,
                      "row_indx_pos" = row_indx_pos,
-                     "est_A" = est_A,
-                     "n_A" = n_A,
                      "y_int"=round(y),
                      "family"=1,
                      "est_trend" = as.numeric(est_trend),
@@ -213,7 +202,6 @@ fit_stan <- function(y, x = NA, model_name = NA,
     pars = c("pred", "log_lik","sigma_process","sigma_obs","x0")
     if(marss$est_B) pars = c(pars, "B")
     if(marss$est_trend) pars = c(pars, "U")
-    if(n_A > 0) pars = c(pars,"A")
   }
   if (map_estimation == FALSE) {
     out <- rstan::sampling(
