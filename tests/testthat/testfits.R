@@ -36,7 +36,7 @@ test_that("fitmodels", {
   set.seed(123)
   mod <- fit_stan(y, model_name = "ss_ar", est_drift = FALSE, mcmc_list=list(n_chain = 1, n_mcmc=300, n_burn=100, n_thin=1) )
   pars <- rstan::extract(mod)
-  expect_equal(mean(pars$sigma), 0.2503624, tolerance = 0.01)
+  expect_equal(mean(pars$sigma_obs), 0.2503624, tolerance = 0.01)
   
   set.seed(123)
   mod <- fit_stan(y, model_name = "ss_rw", est_drift = TRUE, mcmc_list=list(n_chain = 1, n_mcmc=300, n_burn=100, n_thin=1) )
