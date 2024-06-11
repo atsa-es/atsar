@@ -1,16 +1,51 @@
 test_that("fitmodels", {
-  y <- c(1, 5, 3, 12, 5, 6, 6, 2, 8, 14)
+  
   set.seed(123)
-  mod <- lm(y ~ 1)
-  # mod = statss::fit_stan(y, model_name="ar", est_drift = FALSE, mcmc_list=list(n_chain = 1, n_mcmc=300, n_burn=100, n_thin=1) )
-  # testthat::expect_equal(mean(rstan::extract(mod)$lp__), -23.75921, tol=10)
+  y <- cumsum(rnorm(30))
+  
+  set.seed(123)
+  mod <- fit_stan(y, model_name = "ar", est_drift = TRUE, mcmc_list=list(n_chain = 1, n_mcmc=300, n_burn=100, n_thin=1) )
+  pars <- rstan::extract(mod)
+  expect_equal(mean(pars$sigma), 1.028974, tolerance = 0.01)
+  
+  set.seed(123)
+  mod <- fit_stan(y, model_name = "ar", est_drift = FALSE, mcmc_list=list(n_chain = 1, n_mcmc=300, n_burn=100, n_thin=1) )
+  pars <- rstan::extract(mod)
+  expect_equal(mean(pars$sigma), 1.011565, tolerance = 0.01)
+  
+  set.seed(123)
+  mod <- fit_stan(y, model_name = "rw", est_drift = TRUE, mcmc_list=list(n_chain = 1, n_mcmc=300, n_burn=100, n_thin=1) )
+  pars <- rstan::extract(mod)
+  expect_equal(mean(pars$sigma), 1.032227, tolerance = 0.01)
+  
+  set.seed(123)
+  mod <- fit_stan(y, model_name = "rw", est_drift = FALSE, mcmc_list=list(n_chain = 1, n_mcmc=300, n_burn=100, n_thin=1) )
+  pars <- rstan::extract(mod)
+  expect_equal(mean(pars$sigma), 1.03083, tolerance = 0.01)
+  
+  set.seed(123)
+  mod <- fit_stan(y, x = 1:30, model_name = "regression", est_drift = FALSE, mcmc_list=list(n_chain = 1, n_mcmc=300, n_burn=100, n_thin=1) )
+  pars <- rstan::extract(mod)
+  expect_equal(mean(pars$sigma), 2.18601, tolerance = 0.01)
+  
+  set.seed(123)
+  mod <- fit_stan(y, model_name = "ss_ar", est_drift = TRUE, mcmc_list=list(n_chain = 1, n_mcmc=300, n_burn=100, n_thin=1) )
+  pars <- rstan::extract(mod)
+  expect_equal(mean(pars$sigma_obs), 0.2898811, tolerance = 0.01)
+  
+  set.seed(123)
+  mod <- fit_stan(y, model_name = "ss_ar", est_drift = FALSE, mcmc_list=list(n_chain = 1, n_mcmc=300, n_burn=100, n_thin=1) )
+  pars <- rstan::extract(mod)
+  expect_equal(mean(pars$sigma), 0.2503624, tolerance = 0.01)
+  
+  set.seed(123)
+  mod <- fit_stan(y, model_name = "ss_rw", est_drift = TRUE, mcmc_list=list(n_chain = 1, n_mcmc=300, n_burn=100, n_thin=1) )
+  pars <- rstan::extract(mod)
+  expect_equal(mean(pars$sigma_obs), 0.3714019, tolerance = 0.01)
+  
+  set.seed(123)
+  mod <- fit_stan(y, model_name = "ss_rw", est_drift = FALSE, mcmc_list=list(n_chain = 1, n_mcmc=300, n_burn=100, n_thin=1) )
+  pars <- rstan::extract(mod)
+  expect_equal(mean(pars$sigma_obs), 0.4040785, tolerance = 0.01)
 
-  # mod = statss::fit_stan(y, model="ar", est_drift = TRUE, mcmc_list=list(n_chain = 1, n_mcmc=100, n_burn=50, n_thin=1) )
-  # testthat::expect_equal(mean(rstan::extract(mod)$lp__), -23.18948, tol=0.1)
-
-  # mod = statss::fit_stan(y, model="rw", mcmc_list=list(n_chain = 1, n_mcmc=100, n_burn=50, n_thin=1) )
-  # testthat::expect_equal(mean(rstan::extract(mod)$lp__), -18.68706, tol=0.1)
-
-  # mod = statss::fit_stan(y, model="rw", est_drift = TRUE, mcmc_list=list(n_chain = 1, n_mcmc=100, n_burn=50, n_thin=1) )
-  # testthat::expect_equal(mean(rstan::extract(mod)$lp__), -19.05754, tol=0.1)
 })
