@@ -17,6 +17,10 @@ knitr::opts_chunk$set(
 [![atsar status badge](https://atsa-es.r-universe.dev/badges/atsar)](https://atsa-es.r-universe.dev)[![R-CMD-check](https://github.com/nwfsc-timeseries/atsar/workflows/R-CMD-check/badge.svg)](https://github.com/nwfsc-timeseries/atsar/actions)
   <!-- badges: end -->
   
+  <!-- badges: start -->
+  [![Codecov test coverage](https://codecov.io/gh/atsa-es/atsar/branch/master/graph/badge.svg)](https://app.codecov.io/gh/atsa-es/atsar?branch=master)
+  <!-- badges: end -->  
+  
 <style>
 .nav{
     border:1px solid #ccc;

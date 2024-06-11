@@ -2,6 +2,10 @@
 badge](https://atsa-es.r-universe.dev/badges/atsar)](https://atsa-es.r-universe.dev)[![R-CMD-check](https://github.com/nwfsc-timeseries/atsar/workflows/R-CMD-check/badge.svg)](https://github.com/nwfsc-timeseries/atsar/actions)
 <!-- badges: end -->
 
+<!-- badges: start --> [![Codecov test
+coverage](https://codecov.io/gh/atsa-es/atsar/branch/master/graph/badge.svg)](https://app.codecov.io/gh/atsa-es/atsar?branch=master)
+<!-- badges: end -->
+
 <style>
 .nav{
     border:1px solid #ccc;
@@ -65,13 +69,18 @@ Simulate data:
 
 ``` r
 library(rstan)
+#> Warning: package 'rstan' was built under R version 4.3.2
 #> Loading required package: StanHeaders
-#> Loading required package: ggplot2
-#> rstan (Version 2.21.8, GitRev: 2e1f913d3ca3)
+#> Warning: package 'StanHeaders' was built under R version 4.3.2
+#> 
+#> rstan version 2.32.6 (Stan version 2.32.2)
 #> For execution on a local, multicore CPU with excess RAM we recommend calling
 #> options(mc.cores = parallel::detectCores()).
 #> To avoid recompilation of unchanged Stan programs, we recommend calling
 #> rstan_options(auto_write = TRUE)
+#> For within-chain threading using `reduce_sum()` or `map_rect()` Stan functions,
+#> change `threads_per_chain` option:
+#> rstan_options(threads_per_chain = 1)
 library(atsar)
 set.seed(123)
 s = cumsum(rnorm(50))
